@@ -13,6 +13,10 @@ const styles = () => ({
 });
 
 class MessagesList extends React.Component {
+  constructor(props){
+    super(props);
+    this.refMessagesWrapper = React.createRef();
+  }
 
   componentDidMount() {
     this.scrollDownHistory();
@@ -23,7 +27,7 @@ class MessagesList extends React.Component {
   }
 
   scrollDownHistory() {
-    const messagesWrapper = this.refs.messagesWrapper;
+    const messagesWrapper = this.refMessagesWrapper.current;
 
     if (messagesWrapper) {
       messagesWrapper.scrollTop = messagesWrapper.scrollHeight;
@@ -34,7 +38,7 @@ class MessagesList extends React.Component {
     const {classes, classAdditional, messagesList} = this.props;
 
     return (
-      <main ref="messagesWrapper" className={classNames(classes.root, classAdditional)}>
+      <main ref={this.refMessagesWrapper} className={classNames(classes.root, classAdditional)}>
         <List>
           {messagesList.map((message, index) => <MessageItem message={message} key={index}/>)}
         </List>

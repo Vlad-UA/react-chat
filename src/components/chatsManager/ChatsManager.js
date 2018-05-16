@@ -38,9 +38,8 @@ const styles = () => ({
   },
 });
 
-class ChatsManager extends React.Component {
-  render() {
-    const {classes, chatsList, classAdditional} = this.props;
+const ChatsManager = props => {
+    const {classes, chatsList, classAdditional} = props;
 
     return (
       <Drawer variant="permanent" classes={{paper: classAdditional}}>
@@ -53,7 +52,6 @@ class ChatsManager extends React.Component {
         <ChatCreateNewButton classAdditional={classes.chatCreateNewButton}/>
       </Drawer>
     );
-  }
-}
+};
 
 export default withStyles(styles)(ChatsManager);

@@ -4,9 +4,8 @@ import IconRestore from '@material-ui/icons/Restore';
 import IconExplore from '@material-ui/icons/Explore';
 import BottomNavigation, {BottomNavigationAction} from 'material-ui/BottomNavigation';
 
-class ChatsFilter extends React.Component {
-  render() {
-    const {classAdditional} = this.props;
+const ChatsFilter = props => {
+    const {classAdditional} = props;
 
     return (
       <BottomNavigation className={classAdditional} showLabels>
@@ -14,7 +13,6 @@ class ChatsFilter extends React.Component {
         <BottomNavigationAction label="Explore" icon={<IconExplore/>}/>
       </BottomNavigation>
     );
-  }
-}
+};
 
 export default ChatsFilter;

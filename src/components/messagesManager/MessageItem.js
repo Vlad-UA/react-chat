@@ -1,20 +1,24 @@
 import React from 'react';
-import {withStyles} from 'material-ui/styles';
 import classNames from 'classnames';
 
+import {withStyles} from 'material-ui/styles';
 import {ListItem} from 'material-ui/List';
-import Avatar from 'material-ui/Avatar';
 import Paper from 'material-ui/Paper';
 import Typography from 'material-ui/Typography';
 
-import titleInitial from '../../utils/title-initials';
+import AvatarItem from "../AvatarItem";
 
 const styles = theme => ({
+  root:{
+    width: '100%',
+  },
   paper: theme.mixins.gutters({
     paddingTop: 16,
     paddingBottom: 16,
     marginLeft: theme.spacing.unit * 3,
     marginRight: theme.spacing.unit * 3,
+    minWidth: '10%',
+    maxWidth: '70%',
   }),
 
   myMessageListItem: {
@@ -27,28 +31,24 @@ const styles = theme => ({
   },
 });
 
-class MessageItem extends React.Component {
-  render() {
-    const {classes, message} = this.props;
+const MessageItem = props => {
+  const {classes, sender, content} = props;
 
-    const isMessageFromMe = message.sender === "me";
+  const isMessageFromMe = sender === "me";
 
-    return (
-      <ListItem className={classNames(isMessageFromMe && classes.myMessageListItem)}>
-        <Avatar>
-          {titleInitial({title: message.sender, lettersQuantity: 1})}
-        </Avatar>
-        <Paper className={classNames(classes.paper, isMessageFromMe && classes.myMessagePaper)} elevation={4}>
-          <Typography component="p">
-            {message.sender}
-          </Typography>
-          <Typography variant="headline" component="p">
-            {message.content}
-          </Typography>
-        </Paper>
-      </ListItem>
-    )
-  }
-}
+  return (
+    <ListItem className={classNames(classes.root, isMessageFromMe && classes.myMessageListItem)}>
+      <AvatarItem title={sender} lettersQuantity={1}/>
+      <Paper className={classNames(classes.paper, isMessageFromMe && classes.myMessagePaper)} elevation={4}>
+        <Typography component="p" variant="caption">
+          {sender}
+        </Typography>
+        <Typography variant="body1" component="p">
+          {content}
+        </Typography>
+      </Paper>
+    </ListItem>
+  )
+};
 
 export default withStyles(styles)(MessageItem);

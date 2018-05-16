@@ -7,7 +7,6 @@ import MessageTypeNew from './MessageTypeNew';
 
 const styles = () => ({
   messageList: {
-    overflowY: 'scroll',
     height: 'calc(100% - 133px)'
   },
 
@@ -18,9 +17,8 @@ const styles = () => ({
   }
 });
 
-class MessageManager extends React.Component {
-  render() {
-    const {classAdditional, messagesList, classes} = this.props;
+const MessageManager = props => {
+    const {classAdditional, messagesList, classes} = props;
 
     return (
       <div className={classAdditional}>
@@ -28,7 +26,6 @@ class MessageManager extends React.Component {
         <MessageTypeNew classAdditional={classes.messageTypeNew}/>
       </div>
     );
-  }
-}
+};
 
 export default withStyles(styles) (MessageManager);

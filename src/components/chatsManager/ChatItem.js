@@ -1,26 +1,18 @@
 import React from 'react';
 
 import {ListItem, ListItemText} from 'material-ui/List';
-import Avatar from 'material-ui/Avatar';
-import titleInitials from '../../utils/title-initials';
 
+import AvatarItem from "../AvatarItem";
 
-class ChatItem extends React.Component {
-  render() {
-    const {title} = this.props;
+const ChatItem = props => {
+  const {title} = props;
 
-    return (
-        <ListItem>
-          <Avatar>
-            {titleInitials({title:title, lettersQuantity: 2})}
-          </Avatar>
-          <ListItemText primary={title}/>
-        </ListItem>
-    );
-  }
+  return (
+    <ListItem button>
+      <AvatarItem title={title} lettersQuantity={2}/>
+      <ListItemText primary={title}/>
+    </ListItem>
+  );
 }
 
 export default ChatItem;
-
-
-

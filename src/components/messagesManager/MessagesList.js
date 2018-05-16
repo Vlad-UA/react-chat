@@ -40,7 +40,7 @@ class MessagesList extends React.Component {
     return (
       <main ref={this.refMessagesWrapper} className={classNames(classes.root, classAdditional)}>
         <List>
-          {messagesList.map((message, index) => <MessageItem message={message} key={index}/>)}
+          {messagesList && messagesList.map((message, index) => <MessageItem {...message} key={index}/>)}
         </List>
       </main>
     );

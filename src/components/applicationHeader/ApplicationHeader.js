@@ -15,7 +15,7 @@ const styles = () => ({
   },
 });
 
-function ApplicationHeader(props) {
+const ApplicationHeader = props => {
   const {classes, classAdditional} = props;
 
   return (
@@ -28,6 +28,6 @@ function ApplicationHeader(props) {
       </Toolbar>
     </AppBar>
   );
-}
+};
 
 export default withStyles(styles) (ApplicationHeader);

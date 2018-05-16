@@ -12,7 +12,7 @@ const styles = theme => ({
   },
 });
 
-function MessageTypeNew(props) {
+const MessageTypeNew = props => {
   const {classes, classAdditional} = props;
   return (
     <Paper className={classAdditional} elevation={4}>
@@ -22,6 +22,6 @@ function MessageTypeNew(props) {
       />
     </Paper>
   );
-}
+};
 
 export default withStyles(styles)(MessageTypeNew);

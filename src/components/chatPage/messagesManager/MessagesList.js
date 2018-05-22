@@ -13,10 +13,7 @@ const styles = () => ({
 });
 
 class MessagesList extends React.Component {
-  constructor(props){
-    super(props);
-    this.refMessagesWrapper = React.createRef();
-  }
+  refMessagesWrapper = React.createRef();
 
   componentDidMount() {
     this.scrollDownHistory();

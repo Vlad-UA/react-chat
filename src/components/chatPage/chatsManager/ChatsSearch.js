@@ -2,8 +2,7 @@ import React from 'react';
 
 import Input from 'material-ui/Input';
 
-const ChatsSearch = props => {
-  const {classAdditional} = props;
+const ChatsSearch = ({classAdditional}) => {
   return (
     <Input placeholder="Search chats..." className={classAdditional}/>
   );

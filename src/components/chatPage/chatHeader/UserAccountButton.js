@@ -11,8 +11,7 @@ const styles = () => ({
   }
 });
 
-const UserAccountButton = props => {
-  const {classAdditional, classes} = props;
+const UserAccountButton = ({classAdditional, classes}) => {
   return (
     <IconButton className={classNames(classes.root, classAdditional)}>
       <IconAccount/>

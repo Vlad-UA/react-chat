@@ -17,9 +17,7 @@ const styles = () => ({
   }
 });
 
-const MessageManager = props => {
-    const {classAdditional, messagesList, classes} = props;
-
+const MessagesManager = ({classAdditional, messagesList, classes}) => {
     return (
       <div className={classAdditional}>
         <MessageList messagesList={messagesList} classAdditional={classes.messageList}/>
@@ -28,4 +26,4 @@ const MessageManager = props => {
     );
 };
 
-export default withStyles(styles) (MessageManager);
+export default withStyles(styles) (MessagesManager);

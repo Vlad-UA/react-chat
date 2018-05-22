@@ -12,8 +12,7 @@ const styles = theme => ({
   },
 });
 
-const MessageTypeNew = props => {
-  const {classes, classAdditional} = props;
+const MessageTypeNew = ({classes, classAdditional}) => {
   return (
     <Paper className={classAdditional} elevation={4}>
       <Input

@@ -4,7 +4,7 @@ import {withStyles} from 'material-ui/styles';
 import Drawer from 'material-ui/Drawer';
 
 import ChatsList from './ChatsList';
-import ChatCreateNewButton from './ChatCreateNewButton';
+import ChatCreateNew from './ChatCreateNew';
 import ChatSearch from './ChatsSearch';
 import ChatFilter from './ChatsFilter';
 
@@ -38,9 +38,7 @@ const styles = () => ({
   },
 });
 
-const ChatsManager = props => {
-    const {classes, chatsList, classAdditional} = props;
-
+const ChatsManager = ({classes, chatsList, classAdditional}) => {
     return (
       <Drawer variant="permanent" classes={{paper: classAdditional}}>
         <ChatSearch classAdditional={classes.chatSearch}/>
@@ -49,7 +47,7 @@ const ChatsManager = props => {
 
         <ChatFilter classAdditional={classes.chatFilter}/>
 
-        <ChatCreateNewButton classAdditional={classes.chatCreateNewButton}/>
+        <ChatCreateNew classAdditional={classes.chatCreateNewButton}/>
       </Drawer>
     );
 };

@@ -4,12 +4,10 @@ import List from 'material-ui/List';
 
 import ChatItem from './ChatItem';
 
-const ChatsList = props => {
-  const {classAdditional, chatsList} = props;
-
+const ChatsList = ({classAdditional, chatsList}) => {
   return (
     <List className={classAdditional}>
-      {chatsList.map((chat, index) => <ChatItem key={index} {...chat}/>)}
+      {chatsList && chatsList.map((chat, index) => <ChatItem key={index} {...chat}/>)}
     </List>
   );
 }

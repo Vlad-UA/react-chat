@@ -5,8 +5,6 @@ import AppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
 import Typography from 'material-ui/Typography';
 
-import UserAccountButton from './UserAccountButton';
-
 const styles = () => ({
   userAccountButton: {
     position: 'absolute',
@@ -15,19 +13,16 @@ const styles = () => ({
   },
 });
 
-const ApplicationHeader = props => {
-  const {classes, classAdditional} = props;
-
+const WelcomeHeader = ({classAdditional}) => {
   return (
     <AppBar className={classAdditional}>
       <Toolbar>
         <Typography variant="title" color="inherit" noWrap>
           DogeCodes React Chat
         </Typography>
-        <UserAccountButton classAdditional={classes.userAccountButton}/>
       </Toolbar>
     </AppBar>
   );
 };
 
-export default withStyles(styles) (ApplicationHeader);
+export default withStyles(styles) (WelcomeHeader);

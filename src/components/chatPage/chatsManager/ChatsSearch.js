@@ -2,9 +2,9 @@ import React from 'react';
 
 import Input from 'material-ui/Input';
 
-const ChatsSearch = ({classAdditional}) => {
+const ChatsSearch = ({classAdditional, onChange}) => {
   return (
-    <Input placeholder="Search chats..." className={classAdditional}/>
+    <Input placeholder="Search chats..." className={classAdditional} onChange={onChange} />
   );
 };
 

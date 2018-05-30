@@ -4,9 +4,7 @@ import {withStyles} from 'material-ui/styles';
 
 import ChatsManager from './chatsManager/ChatsManager';
 import MessageManager from './messagesManager/MessagesManager';
-import ApplicationHeader from './chatHeader/ChatHeader';
-
-import {chats as chatsList, messages as messagesList} from '../../mock-data';
+import ChatHeader from './chatHeader/ChatHeader';
 
 const styles = () => ({
   root: {
@@ -24,6 +22,8 @@ const styles = () => ({
 
   rightBlock: {
     height: '95vh',
+    // used for centering message when there are no messages in the chat
+    width: '100%',
   },
 
   applicationHeader: {
@@ -37,16 +37,60 @@ const styles = () => ({
   },
 });
 
-const ChatPageView = ({classes}) => {
-  return (
-    <div className={classes.root}>
-      <ChatsManager chatsList={chatsList} classAdditional={classes.chatsManager}/>
-      <div className={classes.rightBlock}>
-        <ApplicationHeader classAdditional={classes.applicationHeader}/>
-        <MessageManager messagesList={messagesList} classAdditional={classes.messageManager}/>
+class ChatPageView extends React.Component {
+
+  componentDidMount() {
+    const {fetchAllChats, fetchMyChats} = this.props;
+
+    Promise.all([
+      fetchAllChats(),
+      fetchMyChats()
+    ]);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const {match: {params}, setActiveChat} = this.props;
+    const {params: nextParams} = nextProps.match;
+
+    // If we change route, then fetch messages from chat by chatID
+    if (nextParams.chatId && params.chatId !== nextParams.chatId) {
+      setActiveChat(nextParams.chatId);
+    }
+  }
+
+  render() {
+    const {classes, chats, activeUser, editUserProfile, onLogoutAction, messagesList, createChat, sendMessage, leaveChat, deleteChat, joinChat} = this.props;
+
+    return (
+      <div className={classes.root}>
+        <ChatsManager
+          chats={chats}
+          classAdditional={classes.chatsManager}
+          createChatAction={createChat}
+        />
+        <div className={classes.rightBlock}>
+          <ChatHeader
+            classAdditional={classes.applicationHeader}
+            activeUser={activeUser}
+            editUserProfile={editUserProfile}
+            onLogoutAction={onLogoutAction}
+            activeChat={chats.active}
+            leaveChat={leaveChat}
+            deleteChat={deleteChat}
+          />
+          <MessageManager
+            messagesList={messagesList}
+            classAdditional={classes.messageManager}
+            isActiveChatExists={!!chats.active}
+            activeUser={activeUser}
+            sendMessage={(messageText) => sendMessage(chats.active._id, messageText)}
+            activeChat={chats.active}
+            joinChat={joinChat}
+          />
+        </div>
       </div>
-    </div>
-  );
-};
+    )
+  }
+}
 
 export default withStyles(styles)(ChatPageView);

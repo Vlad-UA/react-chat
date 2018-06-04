@@ -5,6 +5,7 @@ import {withStyles} from 'material-ui/styles';
 import ChatsManager from './chatsManager/ChatsManager';
 import MessageManager from './messagesManager/MessagesManager';
 import ChatHeader from './chatHeader/ChatHeader';
+import ErrorMessage from "../common/errorMessage";
 
 const styles = () => ({
   root: {
@@ -40,26 +41,39 @@ const styles = () => ({
 class ChatPageView extends React.Component {
 
   componentDidMount() {
-    const {fetchAllChats, fetchMyChats} = this.props;
+    const {fetchAllChats, fetchMyChats, socketConnect, match, setActiveChat, mountChat} = this.props;
 
     Promise.all([
       fetchAllChats(),
       fetchMyChats()
-    ]);
+    ])
+      .then(() => {
+        socketConnect();
+      })
+      .then(()=>{
+        const {chatId} = match.params;
+
+        if(chatId){
+          setActiveChat(chatId);
+          mountChat(chatId);
+        }
+      });
   }
 
   componentWillReceiveProps(nextProps) {
-    const {match: {params}, setActiveChat} = this.props;
+    const {match: {params}, setActiveChat, unmountChat, mountChat} = this.props;
     const {params: nextParams} = nextProps.match;
 
     // If we change route, then fetch messages from chat by chatID
     if (nextParams.chatId && params.chatId !== nextParams.chatId) {
       setActiveChat(nextParams.chatId);
+      unmountChat(params.chatId);
+      mountChat(nextParams.chatId);
     }
   }
 
   render() {
-    const {classes, chats, activeUser, editUserProfile, onLogoutAction, messagesList, createChat, sendMessage, leaveChat, deleteChat, joinChat} = this.props;
+    const {classes, chats, activeUser, editUserProfile, onLogoutAction, messagesList, createChat, sendMessage, leaveChat, deleteChat, joinChat, error, isConnected} = this.props;
 
     return (
       <div className={classes.root}>
@@ -67,6 +81,7 @@ class ChatPageView extends React.Component {
           chats={chats}
           classAdditional={classes.chatsManager}
           createChatAction={createChat}
+          isConnected={isConnected}
         />
         <div className={classes.rightBlock}>
           <ChatHeader
@@ -77,17 +92,20 @@ class ChatPageView extends React.Component {
             activeChat={chats.active}
             leaveChat={leaveChat}
             deleteChat={deleteChat}
+            isConnected={isConnected}
           />
           <MessageManager
             messagesList={messagesList}
             classAdditional={classes.messageManager}
             isActiveChatExists={!!chats.active}
             activeUser={activeUser}
-            sendMessage={(messageText) => sendMessage(chats.active._id, messageText)}
+            sendMessage={sendMessage}
             activeChat={chats.active}
             joinChat={joinChat}
+            isConnected={isConnected}
           />
         </div>
+        <ErrorMessage error={error}/>
       </div>
     )
   }

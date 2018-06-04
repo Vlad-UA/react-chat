@@ -27,12 +27,13 @@ const styles = theme => ({
   },
 });
 
-const MessagesManager = ({classAdditional, messagesList, classes, sendMessage, isActiveChatExists, activeUser, joinChat, activeChat}) => {
+const MessagesManager = ({classAdditional, messagesList, classes, sendMessage, isActiveChatExists, activeUser, joinChat, activeChat, isConnected}) => {
   if (isActiveChatExists) {
     return (
       <div className={classAdditional}>
         <MessageList messagesList={messagesList} classAdditional={classes.messageList} activeUser={activeUser}/>
         <MessageTypeNew
+          disabled={!isConnected}
           classAdditional={classes.messageTypeNew}
           sendMessage={sendMessage}
           showJoinButton={!activeUser.isChatCreatorOrMember}

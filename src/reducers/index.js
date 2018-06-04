@@ -2,11 +2,13 @@ import {combineReducers} from 'redux';
 import authentication from './authenticationReducer';
 import chats from './chatsReducer';
 import messages from './messagesReducer';
+import services from './servicesReducer';
 
 export default combineReducers({
   authentication,
   chats,
   messages,
+  services,
 })
 
 export const getActiveUser = state => state.authentication.user;

@@ -1,4 +1,5 @@
 import * as chatsConst from '../constants/chatsConstants';
+import * as socketsConstants from '../constants/socketsConstants';
 import {combineReducers} from 'redux';
 
 /**
@@ -39,8 +40,9 @@ const activeId = (state = initialState.activeId, action) => {
     case chatsConst.JOIN_CHAT_SUCCESS:
       return getChatId(action.payload.chat);
     case chatsConst.UNSET_ACTIVE_CHAT:
-    case chatsConst.DELETE_CHAT_SUCCESS:
       return null;
+    case socketsConstants.RECEIVE_DELETED_CHAT:
+      return state === getChatId(action.payload.chat) ? null : state;
     default :
       return state;
   }
@@ -50,9 +52,9 @@ const allIds = (state = initialState.allIds, action) => {
   switch (action.type) {
     case chatsConst.FETCH_ALL_CHATS_SUCCESS:
       return action.payload.chats.map(getChatId);
-    case chatsConst.CREATE_CHAT_SUCCESS:
+    case socketsConstants.RECEIVE_NEW_CHAT:
       return [...state, getChatId(action.payload.chat)];
-    case chatsConst.DELETE_CHAT_SUCCESS:
+    case socketsConstants.RECEIVE_DELETED_CHAT:
       return state.filter(
         chatId => chatId !== getChatId(action.payload.chat)
       );
@@ -69,7 +71,7 @@ const myIds = (state = initialState.myIds, action) => {
     case chatsConst.JOIN_CHAT_SUCCESS:
       return [...state, getChatId(action.payload.chat)];
     case chatsConst.LEAVE_CHAT_SUCCESS:
-    case chatsConst.DELETE_CHAT_SUCCESS:
+    case socketsConstants.RECEIVE_DELETED_CHAT:
       return state.filter(
         chatId => chatId !== getChatId(action.payload.chat)
       );
@@ -89,14 +91,14 @@ const byIds = (state = initialState.byIds, action) => {
           [chat._id]: chat
         }), {}),
       };
-    case chatsConst.CREATE_CHAT_SUCCESS:
     case chatsConst.LEAVE_CHAT_SUCCESS:
     case chatsConst.JOIN_CHAT_SUCCESS:
+    case socketsConstants.RECEIVE_NEW_CHAT:
       return {
         ...state,
         [getChatId(action.payload.chat)]: action.payload.chat
       };
-    case chatsConst.DELETE_CHAT_SUCCESS:
+    case socketsConstants.RECEIVE_DELETED_CHAT:
       const newState = {...state};
       delete newState[getChatId(action.payload.chat)];
       return newState;

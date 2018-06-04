@@ -3,7 +3,7 @@ import {Router, Route, Switch, Redirect} from 'react-router-dom';
 
 import ChatPage from '../containers/ChatPageContainer';
 import WelcomePageView from '../containers/WelcomePageContainer';
-import PrivateRoute from '../containers/PrivateRoute';
+import PrivateRoute from '../containers/PrivateRouteContainer';
 import history from '../utils/history';
 
 

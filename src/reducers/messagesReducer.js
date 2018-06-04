@@ -1,11 +1,11 @@
-import * as messagesConstants from '../constants/messagesConstants';
 import * as chatsConstants from '../constants/chatsConstants';
+import * as socketsConstants from '../constants/socketsConstants';
 
 const initialState = [];
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case messagesConstants.SEND_MESSAGE_SUCCESS:
+    case socketsConstants.RECEIVE_MESSAGE:
       return [...state, action.payload.message];
     case chatsConstants.FETCH_CHAT_SUCCESS:
       return action.payload.chat.messages;

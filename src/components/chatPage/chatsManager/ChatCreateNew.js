@@ -77,12 +77,13 @@ class ChatCreateNew extends React.Component {
   };
 
   render() {
-    const {classes, classAdditional} = this.props;
+    const {classes, classAdditional, disabled} = this.props;
     const {open, title} = this.state;
 
     return (
       <React.Fragment>
         <Button
+          disabled={disabled}
           variant="fab"
           color="primary"
           aria-label="add"

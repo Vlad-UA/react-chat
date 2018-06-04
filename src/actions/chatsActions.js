@@ -1,11 +1,16 @@
 import * as chatsConstants from '../constants/chatsConstants';
 import callApi from '../utils/call-api';
-import {redirect} from '../actions/services';
-
+import {redirect} from './servicesActions';
 
 export function fetchMyChats() {
   return (dispatch, getState) => {
-    const {token} = getState().authentication;
+    const state = getState();
+    const {token} = state.authentication;
+    const {isFetching} = state.services;
+
+    if (isFetching.myChats) {
+      return Promise.resolve();
+    }
 
     dispatch({
       type: chatsConstants.FETCH_MY_CHATS_REQUEST
@@ -30,8 +35,13 @@ export function fetchMyChats() {
 
 export function fetchAllChats() {
   return (dispatch, getState) => {
+    const state = getState();
+    const {token} = state.authentication;
+    const {isFetching} = state.services;
 
-    const {token} = getState().authentication;
+    if (isFetching.allChats) {
+      return Promise.resolve();
+    }
 
     dispatch({
       type: chatsConstants.FETCH_ALL_CHATS_REQUEST
@@ -56,7 +66,13 @@ export function fetchAllChats() {
 
 export function fetchChat(chatId) {
   return (dispatch, getState) => {
-    const {token} = getState().authentication;
+    const state = getState();
+    const {token} = state.authentication;
+    const {isFetching} = state.services;
+
+    if (isFetching.chat) {
+      return Promise.resolve();
+    }
 
     dispatch({
       type: chatsConstants.FETCH_CHAT_REQUEST
@@ -83,28 +99,40 @@ export function fetchChat(chatId) {
 }
 
 export function setActiveChat(chatId) {
-  return (dispatch) => {
+  return (dispatch, getState) => {
     return dispatch(fetchChat(chatId))
       .then(data => {
-        if (!data) {
-          dispatch(redirect('/chat'));
+        if (getState().services.isConnected) {
+          if (!data) {
+            dispatch(redirect('/chat'));
 
-          return dispatch({
-            type: chatsConstants.UNSET_ACTIVE_CHAT,
-          });
+            return dispatch({
+              type: chatsConstants.UNSET_ACTIVE_CHAT,
+            });
+          } else {
+            dispatch({
+              type: chatsConstants.SET_ACTIVE_CHAT,
+              payload: data,
+            });
+
+            return dispatch(redirect(`/chat/${data.chat._id}`));
+          }
+        } else {
+          return Promise.resolve();
         }
-
-        dispatch({
-          type: chatsConstants.SET_ACTIVE_CHAT,
-          payload: data,
-        });
       });
   }
 }
 
 export function createChat(title) {
   return (dispatch, getState) => {
-    const {token} = getState().authentication;
+    const state = getState();
+    const {token} = state.authentication;
+    const {isFetching} = state.services;
+
+    if (isFetching.createChat) {
+      return Promise.resolve();
+    }
 
     dispatch({
       type: chatsConstants.CREATE_CHAT_REQUEST,
@@ -137,7 +165,13 @@ export function createChat(title) {
 
 export function joinChat(chatId) {
   return (dispatch, getState) => {
-    const {token} = getState().authentication;
+    const state = getState();
+    const {token} = state.authentication;
+    const {isFetching} = state.services;
+
+    if (isFetching.joinChat) {
+      return Promise.resolve();
+    }
 
     dispatch({
       type: chatsConstants.JOIN_CHAT_REQUEST,
@@ -167,7 +201,13 @@ export function joinChat(chatId) {
 
 export function leaveChat(chatId) {
   return (dispatch, getState) => {
-    const {token} = getState().authentication;
+    const state = getState();
+    const {token} = state.authentication;
+    const {isFetching} = state.services;
+
+    if (isFetching.leaveChat) {
+      return Promise.resolve();
+    }
 
     dispatch({
       type: chatsConstants.LEAVE_CHAT_REQUEST,
@@ -201,7 +241,13 @@ export function leaveChat(chatId) {
 
 export function deleteChat(chatId) {
   return (dispatch, getState) => {
-    const {token} = getState().authentication;
+    const state = getState();
+    const {token} = state.authentication;
+    const {isFetching} = state.services;
+
+    if (isFetching.deleteChat) {
+      return Promise.resolve();
+    }
 
     dispatch({
       type: chatsConstants.DELETE_CHAT_REQUEST,

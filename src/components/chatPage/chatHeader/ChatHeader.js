@@ -27,7 +27,7 @@ const styles = theme => ({
   },
 });
 
-const ChatHeader = ({classes, classAdditional, activeUser, onLogoutAction, editUserProfile, activeChat, leaveChat, deleteChat}) => {
+const ChatHeader = ({classes, classAdditional, activeUser, onLogoutAction, editUserProfile, activeChat, leaveChat, deleteChat, isConnected}) => {
   return (
     <AppBar className={classAdditional}>
       <Toolbar>
@@ -38,6 +38,7 @@ const ChatHeader = ({classes, classAdditional, activeUser, onLogoutAction, editU
               {activeChat.title}
             </Typography>
             <ChatMenu
+              disabled={!isConnected}
               activeUser={activeUser}
               onLeaveClick={() => leaveChat(activeChat._id)}
               onDeleteClick={() => deleteChat(activeChat._id)}
@@ -48,6 +49,7 @@ const ChatHeader = ({classes, classAdditional, activeUser, onLogoutAction, editU
           </Typography>
         }
         <UserAccountButton
+          disabled={!isConnected}
           classAdditional={classes.userAccountButton}
           activeUser={activeUser}
           onLogoutAction={onLogoutAction}

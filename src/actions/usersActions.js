@@ -5,6 +5,11 @@ export function editUserProfile({username, firstName, lastName}) {
   return (dispatch, getState) => {
     const state = getState();
     const {token} = state.authentication;
+    const {isFetching} = state.services;
+
+    if (isFetching.editUser) {
+      return Promise.resolve();
+    }
 
     dispatch({
       type: userConstants.EDIT_USER_PROFILE_REQUEST,

@@ -1,5 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
+import moment from 'moment';
 
 import {withStyles} from 'material-ui/styles';
 import {ListItem} from 'material-ui/List';
@@ -7,6 +8,8 @@ import Paper from 'material-ui/Paper';
 import Typography from 'material-ui/Typography';
 
 import AvatarItem from "../common/Avatar";
+import senderName from '../../../utils/senderName';
+import colorFrom from '../../../utils/getColorFrom';
 
 const styles = theme => ({
   root:{
@@ -29,17 +32,46 @@ const styles = theme => ({
   myMessagePaper: {
     backgroundColor: '#C7EDFC',
   },
+  statusMessage: {
+    width: '100%',
+    textAlign: 'center',
+  },
+  statusMessageUser: {
+    display: 'inline',
+  },
 });
 
-const MessageItem = ({classes, sender, content}) => {
-  const isMessageFromMe = sender === "me";
+const MessageItem = ({classes, sender, content, activeUser, statusMessage, createdAt}) => {
+  const isMessageFromMe = sender._id === activeUser._id;
+
+  const displayedName = senderName(sender);
+
+  if (statusMessage) {
+    return (
+      <div className={classes.root}>
+        <Typography className={classes.statusMessage}>
+          <Typography
+            variant="caption"
+            style={{ color: colorFrom(sender._id) }}
+            className={classes.statusMessageUser}
+          >
+            {displayedName}
+          </Typography>
+          {content}
+          <Typography variant="caption" component="span">
+            {moment(createdAt).fromNow()}
+          </Typography>
+        </Typography>
+      </div>
+    );
+  }
 
   return (
     <ListItem className={classNames(classes.root, isMessageFromMe && classes.myMessageListItem)}>
-      <AvatarItem title={sender} lettersQuantity={1} colorFrom={sender}/>
+      <AvatarItem title={displayedName} lettersQuantity={1} colorFrom={sender._id}/>
       <Paper className={classNames(classes.paper, isMessageFromMe && classes.myMessagePaper)} elevation={4}>
         <Typography component="p" variant="caption">
-          {sender}
+          {displayedName}
         </Typography>
         <Typography variant="body1" component="p">
           {content}

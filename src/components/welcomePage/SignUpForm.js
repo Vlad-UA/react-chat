@@ -63,8 +63,6 @@ class SignUpForm extends React.Component {
       return;
     }
 
-    // console.log("Sign Up: " + username.value + " " + passwordBase.value + " " + passwordRepeat.value);
-
     this.props.onSubmit(username.value, passwordBase.value);
   };
 

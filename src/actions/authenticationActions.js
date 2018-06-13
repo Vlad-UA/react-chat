@@ -3,7 +3,13 @@ import * as localStorageConst from '../constants/localStorageConstants';
 import callApi from '../utils/call-api';
 
 export function signup(username, password) {
-  return (dispatch) => {
+  return (dispatch, getState) => {
+    const {isFetching} = getState().services;
+
+    if (isFetching.signup) {
+      return Promise.resolve();
+    }
+
     dispatch({
       type: authConst.SIGNUP_REQUEST
     });
@@ -37,7 +43,13 @@ export function signup(username, password) {
 }
 
 export function login(username, password) {
-  return (dispatch) => {
+  return (dispatch, getState) => {
+    const {isFetching} = getState().services;
+
+    if (isFetching.login) {
+      return Promise.resolve();
+    }
+
     dispatch({
       type: authConst.LOGIN_REQUEST
     });
@@ -71,7 +83,13 @@ export function login(username, password) {
 }
 
 export function logout() {
-  return (dispatch) => {
+  return (dispatch, getState) => {
+    const {isFetching} = getState().services;
+
+    if (isFetching.logout) {
+      return Promise.resolve();
+    }
+
     dispatch({
       type: authConst.LOGOUT_REQUEST
     });
@@ -98,6 +116,12 @@ export function logout() {
 export function receiveAuth() {
   return (dispatch, getState) => {
     const {token} = getState().authentication;
+
+    const {isFetching} = getState().services;
+
+    if (isFetching.receiveAuth) {
+      return Promise.resolve();
+    }
 
     if (!token) {
       dispatch({

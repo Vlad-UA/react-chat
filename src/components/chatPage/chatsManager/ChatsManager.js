@@ -66,21 +66,29 @@ class ChatsManager extends React.Component{
   };
 
   render(){
-    const {classes, chats, classAdditional, createChatAction} = this.props;
+    const {classes, chats, classAdditional, createChatAction, isConnected} = this.props;
     const { activeTab} = this.state;
 
     return (
       <Drawer variant="permanent" classes={{paper: classAdditional}}>
-        <ChatSearch classAdditional={classes.chatSearch} onChange={this.handleSearchChange}/>
+        <ChatSearch
+          classAdditional={classes.chatSearch}
+          onChange={this.handleSearchChange}
+        />
 
         <ChatsList
+          disabled={!isConnected}
           classAdditional={classes.chatsList}
           chats={this.applySearchFilterAndSorting(activeTab === 0 ? chats.my : chats.all)}
         />
 
-        <ChatFilter classAdditional={classes.chatFilter} onChange={this.handleTabFilterChange}/>
+        <ChatFilter
+          classAdditional={classes.chatFilter}
+          onChange={this.handleTabFilterChange}
+        />
 
         <ChatCreateNew
+          disabled={!isConnected}
           classAdditional={classes.chatCreateNewButton}
           createChatAction={createChatAction}
         />

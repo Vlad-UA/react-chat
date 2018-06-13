@@ -22,11 +22,12 @@ const styles = () => ({
   },
 });
 
-const ChatsList = ({classAdditional, chats, classes}) => {
+const ChatsList = ({classAdditional, chats, classes, disabled}) => {
   return (
     <List className={classNames(classes.root, classAdditional)}>
       {chats && chats.length > 0
         ? chats.map((chat) => <ChatItem
+                                disabled={disabled}
                                 key={chat._id}
                                 isActive={chats.active && chats.active._id === chat._id}
                                 chatId={chat._id}

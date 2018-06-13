@@ -34,7 +34,7 @@ class ChatMenu extends React.Component {
   };
 
   render() {
-    const {classes, activeUser} = this.props;
+    const {classes, activeUser, disabled} = this.props;
     const {anchorEl} = this.state;
 
     if (!activeUser.isChatCreatorOrMember) {
@@ -44,6 +44,7 @@ class ChatMenu extends React.Component {
     return (
       <React.Fragment>
         <IconButton
+          disabled={disabled}
           className={classes.root}
           color="inherit"
           aria-owns={anchorEl ? 'simple-menu' : null}

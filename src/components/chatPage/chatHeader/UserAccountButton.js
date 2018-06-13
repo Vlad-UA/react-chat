@@ -86,7 +86,7 @@ class UserAccountButton extends React.Component {
   };
 
   render() {
-    const {classes, classAdditional} = this.props;
+    const {classes, classAdditional, disabled} = this.props;
     const {anchorEl, isModalOpen} = this.state;
 
     return (
@@ -96,6 +96,7 @@ class UserAccountButton extends React.Component {
           aria-owns={anchorEl ? 'simple-menu' : null}
           aria-haspopup="true"
           onClick={this.handleUserAccountButtonClick}
+          disabled={disabled}
         >
           <IconAccount/>
         </IconButton>

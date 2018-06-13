@@ -49,9 +49,12 @@ export default function authentication(stateAuthentication = initialState, actio
         ...stateAuthentication,
         isAuthenticated: false,
         user: null,
-        token: ''
+        token: '',
       };
     default:
       return stateAuthentication;
   }
 }
+
+// eslint-disable-next-line
+export const getActiveUserId = activeUser => activeUser._id;

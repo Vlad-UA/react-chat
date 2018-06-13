@@ -1,14 +1,19 @@
 import React from 'react';
-
-import titleInitials from "../../../utils/title-initials";
 import MUIAvatar from 'material-ui/Avatar';
-
+import PropTypes from 'prop-types';
+import titleInitials from '../../../utils/title-initials';
 import getColorFrom from '../../../utils/getColorFrom';
 
-const AvatarItem = ({title, lettersQuantity, colorFrom}) => {
-  return <MUIAvatar style={{backgroundColor: getColorFrom(colorFrom)}}>
-    {titleInitials({title, lettersQuantity})}
-  </MUIAvatar>;
+const Avatar = ({ title, lettersQuantity, colorFrom }) => (
+  <MUIAvatar style={{ backgroundColor: getColorFrom(colorFrom) }}>
+    {titleInitials({ title, lettersQuantity })}
+  </MUIAvatar>
+);
+
+Avatar.propTypes = {
+  title: PropTypes.string.isRequired,
+  lettersQuantity: PropTypes.number.isRequired,
+  colorFrom: PropTypes.string.isRequired,
 };
 
-export default AvatarItem;
+export default Avatar;

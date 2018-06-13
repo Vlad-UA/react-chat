@@ -1,18 +1,19 @@
 import React from 'react';
 import classNames from 'classnames';
 import moment from 'moment';
-
-import {withStyles} from 'material-ui/styles';
-import {ListItem} from 'material-ui/List';
+import PropTypes from 'prop-types';
+import { withStyles } from 'material-ui/styles';
+import { ListItem } from 'material-ui/List';
 import Paper from 'material-ui/Paper';
 import Typography from 'material-ui/Typography';
-
-import AvatarItem from "../common/Avatar";
+import AvatarItem from '../common/Avatar';
 import senderName from '../../../utils/senderName';
 import colorFrom from '../../../utils/getColorFrom';
+import { getSenderId } from '../../../reducers/messagesReducer';
+import { getActiveUserId } from '../../../reducers/authenticationReducer';
 
 const styles = theme => ({
-  root:{
+  root: {
     width: '100%',
   },
   paper: theme.mixins.gutters({
@@ -41,8 +42,10 @@ const styles = theme => ({
   },
 });
 
-const MessageItem = ({classes, sender, content, activeUser, statusMessage, createdAt}) => {
-  const isMessageFromMe = sender._id === activeUser._id;
+const MessageItem = ({
+  classes, sender, content, activeUser, statusMessage, createdAt,
+}) => {
+  const isMessageFromMe = getSenderId(sender) === getActiveUserId(activeUser);
 
   const displayedName = senderName(sender);
 
@@ -52,7 +55,7 @@ const MessageItem = ({classes, sender, content, activeUser, statusMessage, creat
         <Typography className={classes.statusMessage}>
           <Typography
             variant="caption"
-            style={{ color: colorFrom(sender._id) }}
+            style={{ color: colorFrom(getSenderId(sender)) }}
             className={classes.statusMessageUser}
           >
             {displayedName}
@@ -68,8 +71,11 @@ const MessageItem = ({classes, sender, content, activeUser, statusMessage, creat
 
   return (
     <ListItem className={classNames(classes.root, isMessageFromMe && classes.myMessageListItem)}>
-      <AvatarItem title={displayedName} lettersQuantity={1} colorFrom={sender._id}/>
-      <Paper className={classNames(classes.paper, isMessageFromMe && classes.myMessagePaper)} elevation={4}>
+      <AvatarItem title={displayedName} lettersQuantity={1} colorFrom={getSenderId(sender)} />
+      <Paper
+        className={classNames(classes.paper, isMessageFromMe && classes.myMessagePaper)}
+        elevation={4}
+      >
         <Typography component="p" variant="caption">
           {displayedName}
         </Typography>
@@ -78,7 +84,22 @@ const MessageItem = ({classes, sender, content, activeUser, statusMessage, creat
         </Typography>
       </Paper>
     </ListItem>
-  )
+  );
+};
+
+MessageItem.propTypes = {
+  classes: PropTypes.objectOf(PropTypes.string).isRequired,
+  sender: PropTypes.shape({
+    username: PropTypes.string,
+    firstName: PropTypes.string,
+    lastName: PropTypes.string,
+  }).isRequired,
+  content: PropTypes.string.isRequired,
+  activeUser: PropTypes.shape({
+    _id: PropTypes.string,
+  }).isRequired,
+  statusMessage: PropTypes.bool.isRequired,
+  createdAt: PropTypes.string.isRequired,
 };
 
 export default withStyles(styles)(MessageItem);

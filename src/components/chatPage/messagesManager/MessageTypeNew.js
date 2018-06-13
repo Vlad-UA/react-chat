@@ -1,13 +1,14 @@
 import React from 'react';
-import classNames from "classnames";
-import {withStyles} from 'material-ui/styles';
+import classNames from 'classnames';
+import { withStyles } from 'material-ui/styles';
 import Paper from 'material-ui/Paper';
 import Input from 'material-ui/Input';
 import Button from 'material-ui/Button';
+import PropTypes from 'prop-types';
 
 const styles = theme => ({
   root: {
-    margin: 20
+    margin: 20,
   },
   input: {
     margin: theme.spacing.unit,
@@ -15,10 +16,10 @@ const styles = theme => ({
     marginTop: 12,
     left: 20,
   },
-  joinButton:{
+  joinButton: {
     marginLeft: 15,
-    width: '95%'
-  }
+    width: '95%',
+  },
 });
 
 class MessageTypeNew extends React.Component {
@@ -27,11 +28,11 @@ class MessageTypeNew extends React.Component {
   };
 
   handleKeyPress = (event) => {
-    const {value} = this.state;
+    const { value } = this.state;
 
     if (event.key === 'Enter' && value) {
       this.props.sendMessage(value);
-      this.setState({value: ''});
+      this.setState({ value: '' });
     }
   };
 
@@ -42,12 +43,13 @@ class MessageTypeNew extends React.Component {
   };
 
   render() {
-    const {classes, classAdditional, showJoinButton, onJoinButtonClick, disabled} = this.props;
+    const {
+      classes, classAdditional, showJoinButton, onJoinButtonClick, disabled,
+    } = this.props;
 
     return (
       <Paper className={classNames(classAdditional, classes.root)} elevation={4}>
-        {showJoinButton
-          ?
+        {showJoinButton ? (
           <Button
             disabled={disabled}
             fullWidth
@@ -58,7 +60,7 @@ class MessageTypeNew extends React.Component {
           >
             Join
           </Button>
-          :
+        ) : (
           <Input
             disabled={disabled}
             placeholder="Type your message..."
@@ -67,10 +69,22 @@ class MessageTypeNew extends React.Component {
             onChange={this.handleValueChange}
             value={this.state.value}
           />
-        }
+        )}
       </Paper>
     );
   }
 }
+
+MessageTypeNew.propTypes = {
+  classes: PropTypes.objectOf(PropTypes.string).isRequired,
+  classAdditional: PropTypes.string,
+  sendMessage: PropTypes.func.isRequired,
+  onJoinButtonClick: PropTypes.func.isRequired,
+  showJoinButton: PropTypes.bool.isRequired,
+  disabled: PropTypes.bool.isRequired,
+};
+MessageTypeNew.defaultProps = {
+  classAdditional: '',
+};
 
 export default withStyles(styles)(MessageTypeNew);

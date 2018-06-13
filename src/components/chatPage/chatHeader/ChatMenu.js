@@ -1,8 +1,9 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import IconButton from 'material-ui/IconButton';
-import Menu, {MenuItem} from 'material-ui/Menu';
+import Menu, { MenuItem } from 'material-ui/Menu';
 import MoreIcon from '@material-ui/icons/MoreVert';
-import {withStyles} from 'material-ui/styles';
+import { withStyles } from 'material-ui/styles';
 
 const styles = () => ({
   root: {
@@ -11,16 +12,30 @@ const styles = () => ({
 });
 
 class ChatMenu extends React.Component {
+  static propTypes = {
+    onLeaveClick: PropTypes.func.isRequired,
+    onDeleteClick: PropTypes.func.isRequired,
+    classes: PropTypes.objectOf(PropTypes.string).isRequired,
+    activeUser: PropTypes.shape({
+      firstName: PropTypes.string,
+      lastName: PropTypes.string,
+      username: PropTypes.string,
+      isMember: PropTypes.bool.isRequired,
+      isCreator: PropTypes.bool.isRequired,
+      isChatMember: PropTypes.bool,
+    }).isRequired,
+    disabled: PropTypes.bool.isRequired,
+  };
   state = {
     anchorEl: null,
   };
 
   handleClick = (event) => {
-    this.setState({anchorEl: event.currentTarget});
+    this.setState({ anchorEl: event.currentTarget });
   };
 
   handleClose = () => {
-    this.setState({anchorEl: null});
+    this.setState({ anchorEl: null });
   };
 
   handleLeaveClick = () => {
@@ -34,8 +49,8 @@ class ChatMenu extends React.Component {
   };
 
   render() {
-    const {classes, activeUser, disabled} = this.props;
-    const {anchorEl} = this.state;
+    const { classes, activeUser, disabled } = this.props;
+    const { anchorEl } = this.state;
 
     if (!activeUser.isChatCreatorOrMember) {
       return null;
@@ -51,7 +66,7 @@ class ChatMenu extends React.Component {
           aria-haspopup="true"
           onClick={this.handleClick}
         >
-          <MoreIcon/>
+          <MoreIcon />
         </IconButton>
         <Menu
           id="simple-menu"

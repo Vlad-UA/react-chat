@@ -1,11 +1,10 @@
 import React from 'react';
-
-import {withStyles} from 'material-ui/styles';
-
+import PropTypes from 'prop-types';
+import { withStyles } from 'material-ui/styles';
 import ChatsManager from './chatsManager/ChatsManager';
 import MessageManager from './messagesManager/MessagesManager';
 import ChatHeader from './chatHeader/ChatHeader';
-import ErrorMessage from "../common/errorMessage";
+import ErrorMessage from '../common/ErrorMessage';
 
 const styles = () => ({
   root: {
@@ -28,32 +27,81 @@ const styles = () => ({
   },
 
   applicationHeader: {
-    width: `calc(100% - 320px)`,
+    width: 'calc(100% - 320px)',
   },
 
   messageManager: {
     position: 'relative',
     top: 87,
-    height: 'calc(100% - 26px)'
+    height: 'calc(100% - 26px)',
   },
 });
 
 class ChatPageView extends React.Component {
+  static propTypes = {
+    classes: PropTypes.objectOf(PropTypes.string).isRequired,
+    match: PropTypes.shape({
+      params: PropTypes.object.isRequired,
+    }).isRequired,
+    fetchAllChats: PropTypes.func.isRequired,
+    fetchMyChats: PropTypes.func.isRequired,
+    setActiveChat: PropTypes.func.isRequired,
+    socketConnect: PropTypes.func,
+    mountChat: PropTypes.func.isRequired,
+    unmountChat: PropTypes.func.isRequired,
+    onLogoutAction: PropTypes.func.isRequired,
+    chats: PropTypes.shape({
+      active: PropTypes.object,
+      my: PropTypes.array.isRequired,
+      all: PropTypes.array.isRequired,
+    }).isRequired,
+    activeUser: PropTypes.shape({
+      firstName: PropTypes.string,
+      lastName: PropTypes.string,
+      username: PropTypes.string,
+      isMember: PropTypes.bool.isRequired,
+      isCreator: PropTypes.bool.isRequired,
+      isChatMember: PropTypes.bool,
+    }).isRequired,
+    createChat: PropTypes.func.isRequired,
+    joinChat: PropTypes.func.isRequired,
+    leaveChat: PropTypes.func.isRequired,
+    deleteChat: PropTypes.func.isRequired,
+    sendMessage: PropTypes.func.isRequired,
+    messagesList: PropTypes.arrayOf(PropTypes.shape({
+      chatId: PropTypes.string.isRequired,
+      content: PropTypes.string.isRequired,
+      sender: PropTypes.object.isRequired,
+      createdAt: PropTypes.string.isRequired,
+    })).isRequired,
+    editUserProfile: PropTypes.func.isRequired,
+    error: PropTypes.instanceOf(Error),
+    isConnected: PropTypes.bool.isRequired,
+  };
+
+  static defaultProps = {
+    error: null,
+    socketConnect: null,
+  };
 
   componentDidMount() {
-    const {fetchAllChats, fetchMyChats, socketConnect, match, setActiveChat, mountChat} = this.props;
+    const {
+      fetchAllChats,
+      fetchMyChats,
+      socketConnect,
+      match,
+      setActiveChat,
+      mountChat,
+    } = this.props;
 
-    Promise.all([
-      fetchAllChats(),
-      fetchMyChats()
-    ])
+    Promise.all([fetchAllChats(), fetchMyChats()])
       .then(() => {
         socketConnect();
       })
-      .then(()=>{
-        const {chatId} = match.params;
+      .then(() => {
+        const { chatId } = match.params;
 
-        if(chatId){
+        if (chatId) {
           setActiveChat(chatId);
           mountChat(chatId);
         }
@@ -61,8 +109,13 @@ class ChatPageView extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const {match: {params}, setActiveChat, unmountChat, mountChat} = this.props;
-    const {params: nextParams} = nextProps.match;
+    const {
+      match: { params },
+      setActiveChat,
+      unmountChat,
+      mountChat,
+    } = this.props;
+    const { params: nextParams } = nextProps.match;
 
     // If we change route, then fetch messages from chat by chatID
     if (nextParams.chatId && params.chatId !== nextParams.chatId) {
@@ -73,7 +126,21 @@ class ChatPageView extends React.Component {
   }
 
   render() {
-    const {classes, chats, activeUser, editUserProfile, onLogoutAction, messagesList, createChat, sendMessage, leaveChat, deleteChat, joinChat, error, isConnected} = this.props;
+    const {
+      classes,
+      chats,
+      activeUser,
+      editUserProfile,
+      onLogoutAction,
+      messagesList,
+      createChat,
+      sendMessage,
+      leaveChat,
+      deleteChat,
+      joinChat,
+      error,
+      isConnected,
+    } = this.props;
 
     return (
       <div className={classes.root}>
@@ -105,9 +172,9 @@ class ChatPageView extends React.Component {
             isConnected={isConnected}
           />
         </div>
-        <ErrorMessage error={error}/>
+        <ErrorMessage error={error} />
       </div>
-    )
+    );
   }
 }
 

@@ -1,11 +1,11 @@
 import React from 'react';
-import classNames from "classnames";
-
+import classNames from 'classnames';
 import List from 'material-ui/List';
+import PropTypes from 'prop-types';
 import Typography from 'material-ui/Typography';
-
+import { withStyles } from 'material-ui/styles/index';
 import ChatItem from './ChatItem';
-import {withStyles} from "material-ui/styles/index";
+import { getChatId } from '../../../reducers/chatsReducer';
 
 const styles = () => ({
   root: {
@@ -22,23 +22,36 @@ const styles = () => ({
   },
 });
 
-const ChatsList = ({classAdditional, chats, classes, disabled}) => {
-  return (
-    <List className={classNames(classes.root, classAdditional)}>
-      {chats && chats.length > 0
-        ? chats.map((chat) => <ChatItem
-                                disabled={disabled}
-                                key={chat._id}
-                                isActive={chats.active && chats.active._id === chat._id}
-                                chatId={chat._id}
-                                {...chat}
-                              />)
-        : <Typography variant="subheading" className={classes.noChatMessage}>
-          There is no chats yet...
-        </Typography>
-      }
-    </List>
-  );
-}
+const ChatsList = ({
+  classAdditional, chats, classes, disabled,
+}) => (
+  <List className={classNames(classes.root, classAdditional)}>
+    {chats && chats.length > 0 ? (
+      chats.map(chat => (
+        <ChatItem
+          disabled={disabled}
+          key={getChatId(chat)}
+          isActive={chats.active && getChatId(chats.active) === getChatId(chat)}
+          chatId={getChatId(chat)}
+          {...chat}
+        />
+      ))
+    ) : (
+      <Typography variant="subheading" className={classes.noChatMessage}>
+        There is no chats yet...
+      </Typography>
+    )}
+  </List>
+);
+
+ChatsList.propTypes = {
+  classAdditional: PropTypes.string,
+  classes: PropTypes.objectOf(PropTypes.string).isRequired,
+  chats: PropTypes.arrayOf(PropTypes.object).isRequired,
+  disabled: PropTypes.bool.isRequired,
+};
+ChatsList.defaultProps = {
+  classAdditional: '',
+};
 
 export default withStyles(styles)(ChatsList);

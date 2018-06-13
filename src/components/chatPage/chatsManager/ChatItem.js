@@ -1,12 +1,10 @@
 import React from 'react';
-
-import {Link} from 'react-router-dom';
-
-import {ListItem, ListItemText} from 'material-ui/List';
-import {withStyles} from "material-ui/styles/index";
+import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { ListItem, ListItemText } from 'material-ui/List';
+import { withStyles } from 'material-ui/styles/index';
 import moment from 'moment';
-
-import AvatarItem from "../common/Avatar";
+import Avatar from '../common/Avatar';
 
 const styles = () => ({
   isActive: {
@@ -14,27 +12,31 @@ const styles = () => ({
   },
 });
 
-class ChatItem extends React.Component {
-  render() {
-    const {classes, title, chatId, isActive, createdAt} = this.props;
+const ChatItem = ({
+  classes, title, chatId, isActive, createdAt, disabled,
+}) => (
+  <ListItem
+    button
+    component={Link}
+    to={`/chat/${chatId}`}
+    className={isActive ? classes.isActive : ''}
+    disabled={disabled}
+  >
+    <Avatar title={title} lettersQuantity={2} colorFrom={title} />
+    <ListItemText primary={title} secondary={moment(createdAt).fromNow()} />
+  </ListItem>
+);
 
-    // TODO check  disabled={disabled} for <ListItem>
-    return (
-      <ListItem
-        button
-        component={Link}
-        to={`/chat/${chatId}`}
-        className={isActive ? classes.isActive : ''}
-      >
-        <AvatarItem
-          title={title}
-          lettersQuantity={2}
-          colorFrom={title}
-        />
-        <ListItemText primary={title} secondary={moment(createdAt).fromNow()}/>
-      </ListItem>
-    );
-  }
-}
+ChatItem.propTypes = {
+  classes: PropTypes.objectOf(PropTypes.string).isRequired,
+  title: PropTypes.string.isRequired,
+  chatId: PropTypes.string.isRequired,
+  isActive: PropTypes.bool,
+  createdAt: PropTypes.string.isRequired,
+  disabled: PropTypes.bool.isRequired,
+};
+ChatItem.defaultProps = {
+  isActive: null,
+};
 
 export default withStyles(styles)(ChatItem);

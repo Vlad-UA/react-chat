@@ -1,6 +1,8 @@
+/* eslint no-use-before-define: 0 */
+
+import { combineReducers } from 'redux';
 import * as chatsConst from '../constants/chatsConstants';
 import * as socketsConstants from '../constants/socketsConstants';
-import {combineReducers} from 'redux';
 
 /**
  * @type {object}
@@ -31,7 +33,7 @@ const initialState = {
   activeId: null,
   allIds: [],
   myIds: [],
-  byIds: {}
+  byIds: {},
 };
 
 const activeId = (state = initialState.activeId, action) => {
@@ -43,7 +45,7 @@ const activeId = (state = initialState.activeId, action) => {
       return null;
     case socketsConstants.RECEIVE_DELETED_CHAT:
       return state === getChatId(action.payload.chat) ? null : state;
-    default :
+    default:
       return state;
   }
 };
@@ -55,10 +57,8 @@ const allIds = (state = initialState.allIds, action) => {
     case socketsConstants.RECEIVE_NEW_CHAT:
       return [...state, getChatId(action.payload.chat)];
     case socketsConstants.RECEIVE_DELETED_CHAT:
-      return state.filter(
-        chatId => chatId !== getChatId(action.payload.chat)
-      );
-    default :
+      return state.filter(chatId => chatId !== getChatId(action.payload.chat));
+    default:
       return state;
   }
 };
@@ -72,37 +72,39 @@ const myIds = (state = initialState.myIds, action) => {
       return [...state, getChatId(action.payload.chat)];
     case chatsConst.LEAVE_CHAT_SUCCESS:
     case socketsConstants.RECEIVE_DELETED_CHAT:
-      return state.filter(
-        chatId => chatId !== getChatId(action.payload.chat)
-      );
-    default :
+      return state.filter(chatId => chatId !== getChatId(action.payload.chat));
+    default:
       return state;
   }
 };
 
 const byIds = (state = initialState.byIds, action) => {
+  let newState;
   switch (action.type) {
     case chatsConst.FETCH_ALL_CHATS_SUCCESS:
     case chatsConst.FETCH_MY_CHATS_SUCCESS:
       return {
         ...state,
-        ...action.payload.chats.reduce((ids, chat) => ({
-          ...ids,
-          [chat._id]: chat
-        }), {}),
+        ...action.payload.chats.reduce(
+          (ids, chat) => ({
+            ...ids,
+            [getChatId(chat)]: chat,
+          }),
+          {},
+        ),
       };
     case chatsConst.LEAVE_CHAT_SUCCESS:
     case chatsConst.JOIN_CHAT_SUCCESS:
     case socketsConstants.RECEIVE_NEW_CHAT:
       return {
         ...state,
-        [getChatId(action.payload.chat)]: action.payload.chat
+        [getChatId(action.payload.chat)]: action.payload.chat,
       };
     case socketsConstants.RECEIVE_DELETED_CHAT:
-      const newState = {...state};
+      newState = { ...state };
       delete newState[getChatId(action.payload.chat)];
       return newState;
-    default :
+    default:
       return state;
   }
 };
@@ -111,9 +113,10 @@ export default combineReducers({
   activeId,
   allIds,
   myIds,
-  byIds
+  byIds,
 });
 
-export const getChatId = (chat) => chat._id;
+// eslint-disable-next-line
+export const getChatId = chat => chat._id;
 export const getById = (state, id) => state.byIds[id];
 export const getByIds = (state, ids) => ids.map(id => state.byIds[id]);

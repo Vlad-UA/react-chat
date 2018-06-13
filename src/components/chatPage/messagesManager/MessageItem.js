@@ -98,8 +98,12 @@ MessageItem.propTypes = {
   activeUser: PropTypes.shape({
     _id: PropTypes.string,
   }).isRequired,
-  statusMessage: PropTypes.bool.isRequired,
+  statusMessage: PropTypes.bool,
   createdAt: PropTypes.string.isRequired,
 };
+MessageItem.defaultProps = {
+  statusMessage: null,
+};
+
 
 export default withStyles(styles)(MessageItem);

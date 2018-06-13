@@ -1,13 +1,14 @@
 /* eslint-env jest */
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { MemoryRouter, Route } from 'react-router-dom';
 import ChatPageView from '../ChatPageView';
 
 const mockProps = {
   fetchAllChats: jest.fn(),
   fetchMyChats: jest.fn(),
   setActiveChat: jest.fn(),
-  socketsConnect: jest.fn(),
+  socketConnect: jest.fn(),
   mountChat: jest.fn(),
   unmountChat: jest.fn(),
   onLogoutAction: jest.fn(),
@@ -17,9 +18,6 @@ const mockProps = {
   deleteChat: jest.fn(),
   sendMessage: jest.fn(),
   editUserProfile: jest.fn(),
-  match: {
-    params: {},
-  },
   chats: {
     active: {},
     my: [],
@@ -62,8 +60,15 @@ jest.mock('../messagesManager/MessagesManager', () => () => 'MessagesManager');
 jest.mock('../chatHeader/ChatHeader', () => () => 'ChatHeader');
 jest.mock('../../common/ErrorMessage', () => () => 'ErrorMessage');
 
-it('renders without crashing', () => {
-  const div = document.createElement('div');
-  ReactDOM.render(<ChatPageView {...mockProps} />, div);
-  ReactDOM.unmountComponentAtNode(div);
+describe('<ChatPageView />', () => {
+  it('renders without crashing', () => {
+    const div = document.createElement('div');
+    ReactDOM.render(
+      <MemoryRouter initialEntries={['/chat/123']}>
+        <Route path="/chat/:chatId?" render={props => <ChatPageView {...mockProps} {...props} />} />
+      </MemoryRouter>,
+      div,
+    );
+    ReactDOM.unmountComponentAtNode(div);
+  });
 });

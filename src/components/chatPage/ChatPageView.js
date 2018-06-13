@@ -46,7 +46,7 @@ class ChatPageView extends React.Component {
     fetchAllChats: PropTypes.func.isRequired,
     fetchMyChats: PropTypes.func.isRequired,
     setActiveChat: PropTypes.func.isRequired,
-    socketConnect: PropTypes.func,
+    socketConnect: PropTypes.func.isRequired,
     mountChat: PropTypes.func.isRequired,
     unmountChat: PropTypes.func.isRequired,
     onLogoutAction: PropTypes.func.isRequired,
@@ -81,7 +81,6 @@ class ChatPageView extends React.Component {
 
   static defaultProps = {
     error: null,
-    socketConnect: null,
   };
 
   componentDidMount() {

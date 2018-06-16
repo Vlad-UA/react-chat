@@ -7,6 +7,9 @@ import ChatItem from '../ChatItem';
 
 jest.mock('../../common/Avatar', () => () => 'Avatar');
 
+// Return a fixed timestamp when moment().fromNow() is called
+jest.mock('moment', () => () => ({ fromNow: () => '2 days ago' }));
+
 const mockProps = {
   title: 'title',
   chatId: 'chatId',

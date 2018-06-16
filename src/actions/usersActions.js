@@ -2,7 +2,7 @@ import * as userConstants from '../constants/userConstants';
 import callApi from '../utils/call-api';
 
 // eslint-disable-next-line
-export function editUserProfile({ username, firstName, lastName }) {
+export function editUserProfile({username, firstName, lastName}) {
   return (dispatch, getState) => {
     const state = getState();
     const { token } = state.authentication;

@@ -33,7 +33,7 @@
     "lint": "eslint \"src/**/*.js\"",
     "lint:fix": "npm run lint -- --fix",
     "prettier:format": "prettier-eslint --write \"**/*.{js,json}\"",
-    "prepush": "npm run test"
+    "prepush": "CI=true npm run test"
   },
   "devDependencies": {
     "babel-eslint": "^8.2.3",

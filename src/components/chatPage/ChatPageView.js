@@ -32,7 +32,7 @@ const styles = () => ({
 
   messageManager: {
     position: 'relative',
-    top: 87,
+    top: 64,
     height: 'calc(100% - 26px)',
   },
 });

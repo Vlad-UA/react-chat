@@ -1,11 +1,12 @@
 import * as userConstants from '../constants/userConstants';
 import callApi from '../utils/call-api';
 
+// eslint-disable-next-line
 export function editUserProfile({username, firstName, lastName}) {
   return (dispatch, getState) => {
     const state = getState();
-    const {token} = state.authentication;
-    const {isFetching} = state.services;
+    const { token } = state.authentication;
+    const { isFetching } = state.services;
 
     if (isFetching.editUser) {
       return Promise.resolve();
@@ -18,8 +19,8 @@ export function editUserProfile({username, firstName, lastName}) {
     return callApi({
       endpoint: '/users/me',
       token,
-      options: {method: 'POST'},
-      payload: {data: {username, firstName, lastName},},
+      options: { method: 'POST' },
+      payload: { data: { username, firstName, lastName } },
     })
       .then(json =>
         dispatch({

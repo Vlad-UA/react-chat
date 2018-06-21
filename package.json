@@ -5,11 +5,15 @@
   "dependencies": {
     "@material-ui/icons": "^1.0.0-beta.43",
     "classnames": "^2.2.5",
+    "history": "^4.7.2",
     "isomorphic-fetch": "^2.2.1",
     "material-ui": "^1.0.0-beta.47",
     "moment": "^2.22.1",
-    "npm": "^6.1.0",
+    "prop-types": "^15.6.1",
     "react": "^16.3.2",
+    "react-app-rewire-eslint": "^0.2.3",
+    "react-app-rewire-polyfills": "^0.2.0",
+    "react-app-rewired": "^1.5.2",
     "react-dom": "^16.3.2",
     "react-redux": "^5.0.7",
     "react-router-dom": "^4.2.2",
@@ -22,9 +26,26 @@
     "typeface-roboto": "0.0.54"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "start": "react-app-rewired start",
+    "build": "react-app-rewired build",
+    "test": "react-app-rewired test --env=jsdom",
+    "eject": "react-scripts-rewired eject",
+    "lint": "eslint \"src/**/*.js\"",
+    "lint:fix": "npm run lint -- --fix",
+    "prettier:format": "prettier-eslint --write \"**/*.{js,json}\"",
+    "prepush": "CI=true npm run test"
+  },
+  "devDependencies": {
+    "babel-eslint": "^8.2.3",
+    "eslint": "^4.19.1",
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-plugin-import": "^2.12.0",
+    "eslint-plugin-jsx-a11y": "^6.0.3",
+    "eslint-plugin-react": "^7.9.1",
+    "expect": "^23.1.0",
+    "fetch-mock": "^6.4.4",
+    "prettier-eslint-cli": "^4.7.1",
+    "react-test-renderer": "^16.4.0",
+    "redux-mock-store": "^1.5.3"
   }
 }

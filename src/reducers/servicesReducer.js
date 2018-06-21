@@ -1,4 +1,4 @@
-import {combineReducers} from 'redux';
+import { combineReducers } from 'redux';
 import * as authenticationConstants from '../constants/authenticationConstants';
 import * as userConstants from '../constants/userConstants';
 import * as chatsConstants from '../constants/chatsConstants';
@@ -32,71 +32,71 @@ const initialState = {
 export const isFetching = (state = initialState.isFetching, action) => {
   switch (action.type) {
     case authenticationConstants.SIGNUP_REQUEST:
-      return {...state, signup: true};
+      return { ...state, signup: true };
     case authenticationConstants.LOGIN_REQUEST:
-      return {...state, login: true};
+      return { ...state, login: true };
     case authenticationConstants.LOGOUT_REQUEST:
-      return {...state, logout: true};
+      return { ...state, logout: true };
     case authenticationConstants.RECEIVE_AUTH_REQUEST:
-      return {...state, receiveAuth: true};
+      return { ...state, receiveAuth: true };
     case chatsConstants.FETCH_ALL_CHATS_REQUEST:
-      return {...state, allChats: true};
+      return { ...state, allChats: true };
     case chatsConstants.FETCH_MY_CHATS_REQUEST:
-      return {...state, myChats: true};
+      return { ...state, myChats: true };
     case chatsConstants.FETCH_CHAT_REQUEST:
-      return {...state, chat: true};
+      return { ...state, chat: true };
     case chatsConstants.CREATE_CHAT_REQUEST:
-      return {...state, createChat: true};
+      return { ...state, createChat: true };
     case chatsConstants.JOIN_CHAT_REQUEST:
-      return {...state, joinChat: true};
+      return { ...state, joinChat: true };
     case chatsConstants.LEAVE_CHAT_REQUEST:
-      return {...state, leaveChat: true};
+      return { ...state, leaveChat: true };
     case chatsConstants.DELETE_CHAT_REQUEST:
-      return {...state, deleteChat: true};
+      return { ...state, deleteChat: true };
     case socketsConstants.SOCKETS_CONNECTION_REQUEST:
-      return {...state, sockets: true};
+      return { ...state, sockets: true };
     case userConstants.EDIT_USER_PROFILE_REQUEST:
-      return {...state, editUser: true};
+      return { ...state, editUser: true };
 
     case authenticationConstants.SIGNUP_SUCCESS:
     case authenticationConstants.SIGNUP_FAILURE:
-      return {...state, signup: false};
+      return { ...state, signup: false };
     case authenticationConstants.LOGIN_SUCCESS:
     case authenticationConstants.LOGIN_FAILURE:
-      return {...state, login: false};
+      return { ...state, login: false };
     case authenticationConstants.LOGOUT_SUCCESS:
     case authenticationConstants.LOGOUT_FAILURE:
-      return {...state, logout: false};
+      return { ...state, logout: false };
     case authenticationConstants.RECEIVE_AUTH_SUCCESS:
     case authenticationConstants.RECEIVE_AUTH_FAILURE:
-      return {...state, receiveAuth: false};
+      return { ...state, receiveAuth: false };
     case chatsConstants.FETCH_ALL_CHATS_SUCCESS:
     case chatsConstants.FETCH_ALL_CHATS_FAILURE:
-      return {...state, allChats: false};
+      return { ...state, allChats: false };
     case chatsConstants.FETCH_MY_CHATS_SUCCESS:
     case chatsConstants.FETCH_MY_CHATS_FAILURE:
-      return {...state, myChats: false};
+      return { ...state, myChats: false };
     case chatsConstants.FETCH_CHAT_SUCCESS:
     case chatsConstants.FETCH_CHAT_FAILURE:
-      return {...state, chat: false};
+      return { ...state, chat: false };
     case chatsConstants.CREATE_CHAT_SUCCESS:
     case chatsConstants.CREATE_CHAT_FAILURE:
-      return {...state, createChat: false};
+      return { ...state, createChat: false };
     case chatsConstants.JOIN_CHAT_SUCCESS:
     case chatsConstants.JOIN_CHAT_FAILURE:
-      return {...state, joinChat: false};
+      return { ...state, joinChat: false };
     case chatsConstants.LEAVE_CHAT_SUCCESS:
     case chatsConstants.LEAVE_CHAT_FAILURE:
-      return {...state, leaveChat: false};
+      return { ...state, leaveChat: false };
     case chatsConstants.DELETE_CHAT_SUCCESS:
     case chatsConstants.DELETE_CHAT_FAILURE:
-      return {...state, deleteChat: false};
+      return { ...state, deleteChat: false };
     case socketsConstants.SOCKETS_CONNECTION_SUCCESS:
     case socketsConstants.SOCKETS_CONNECTION_FAILURE:
-      return {...state, sockets: false};
+      return { ...state, sockets: false };
     case userConstants.EDIT_USER_PROFILE_SUCCESS:
     case userConstants.EDIT_USER_PROFILE_FAILURE:
-      return {...state, editUser: false};
+      return { ...state, editUser: false };
     default:
       return state;
   }
@@ -109,14 +109,14 @@ export const errors = (state = initialState.errors, action) => {
     case authenticationConstants.LOGOUT_FAILURE:
       return {
         ...state,
-        auth: action.payload
+        auth: action.payload,
       };
     case authenticationConstants.SIGNUP_SUCCESS:
     case authenticationConstants.LOGIN_SUCCESS:
     case authenticationConstants.LOGOUT_SUCCESS:
       return {
         ...state,
-        auth: null
+        auth: null,
       };
     case chatsConstants.FETCH_ALL_CHATS_FAILURE:
     case chatsConstants.FETCH_MY_CHATS_FAILURE:
@@ -127,7 +127,7 @@ export const errors = (state = initialState.errors, action) => {
     case chatsConstants.DELETE_CHAT_FAILURE:
     case socketsConstants.SOCKETS_CONNECTION_FAILURE:
     case userConstants.EDIT_USER_PROFILE_FAILURE:
-      return {...state, chat: action.payload};
+      return { ...state, chat: action.payload };
     case chatsConstants.FETCH_ALL_CHATS_SUCCESS:
     case chatsConstants.FETCH_MY_CHATS_SUCCESS:
     case chatsConstants.FETCH_CHAT_SUCCESS:
@@ -137,7 +137,7 @@ export const errors = (state = initialState.errors, action) => {
     case chatsConstants.DELETE_CHAT_SUCCESS:
     case socketsConstants.SOCKETS_CONNECTION_SUCCESS:
     case userConstants.EDIT_USER_PROFILE_SUCCESS:
-      return {...state, chat: null};
+      return { ...state, chat: null };
     default:
       return state;
   }
@@ -159,4 +159,4 @@ export default combineReducers({
   isFetching,
   errors,
   isConnected,
-})
+});

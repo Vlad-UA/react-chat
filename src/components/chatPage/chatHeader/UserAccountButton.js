@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
-
-import {withStyles} from 'material-ui/styles';
+import PropTypes from 'prop-types';
+import { withStyles } from 'material-ui/styles';
 import IconButton from 'material-ui/IconButton';
 import IconAccount from '@material-ui/icons/AccountCircle';
 import Menu from 'material-ui/Menu';
@@ -29,6 +29,17 @@ const styles = theme => ({
 });
 
 class UserAccountButton extends React.Component {
+  static propTypes = {
+    editUserProfile: PropTypes.func.isRequired,
+    onLogoutAction: PropTypes.func.isRequired,
+    classes: PropTypes.objectOf(PropTypes.string).isRequired,
+    classAdditional: PropTypes.string,
+    disabled: PropTypes.bool.isRequired,
+  };
+  static defaultProps = {
+    classAdditional: '',
+  };
+  // eslint-disable-next-line
   state = {
     isModalOpen: false,
     anchorEl: null,
@@ -36,47 +47,40 @@ class UserAccountButton extends React.Component {
     firstName: '',
     lastName: '',
   };
-
   static getDerivedStateFromProps(props, state) {
-    return{
+    return {
       ...state,
       username: props.activeUser.username,
       firstName: props.activeUser.firstName,
       lastName: props.activeUser.lastName,
     };
-  };
-
-  handleUserAccountButtonClick = event => {
-    this.setState({anchorEl: event.currentTarget});
-  };
-
-  handleMenuClose = () => {
-    this.setState({anchorEl: null});
-  };
-
-  handleMenuItemEditProfileClick = () => {
-    this.setState({isModalOpen: true});
-    this.handleMenuClose();
-  };
-
-  handleMenuItemLogoutClick = () => {
-    this.props.onLogoutAction();
-    this.handleMenuClose();
-  };
-
+  }
   onCloseEditProfileModal = () => {
-    this.setState({isModalOpen: false});
+    this.setState({ isModalOpen: false });
   };
 
   onSaveEditProfileModal = () => {
-
     this.props.editUserProfile({
       username: this.state.username,
       firstName: this.state.firstName,
       lastName: this.state.lastName,
     });
 
-    this.setState({isModalOpen: false});
+    this.setState({ isModalOpen: false });
+  };
+  handleMenuItemLogoutClick = () => {
+    this.props.onLogoutAction();
+    this.handleMenuClose();
+  };
+  handleMenuItemEditProfileClick = () => {
+    this.setState({ isModalOpen: true });
+    this.handleMenuClose();
+  };
+  handleMenuClose = () => {
+    this.setState({ anchorEl: null });
+  };
+  handleUserAccountButtonClick = (event) => {
+    this.setState({ anchorEl: event.currentTarget });
   };
 
   handleInputChange = (event) => {
@@ -86,8 +90,8 @@ class UserAccountButton extends React.Component {
   };
 
   render() {
-    const {classes, classAdditional, disabled} = this.props;
-    const {anchorEl, isModalOpen} = this.state;
+    const { classes, classAdditional, disabled } = this.props;
+    const { anchorEl, isModalOpen } = this.state;
 
     return (
       <React.Fragment>
@@ -98,7 +102,7 @@ class UserAccountButton extends React.Component {
           onClick={this.handleUserAccountButtonClick}
           disabled={disabled}
         >
-          <IconAccount/>
+          <IconAccount />
         </IconButton>
         <Menu
           id="simple-menu"

@@ -1,0 +1,47 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<MessageItem /> snapshot renders correctly - base message (not status message) 1`] = `
+<li
+  className="MuiListItem-root-74 MuiListItem-default-77 MuiListItem-gutters-81 MessageItem-root-68 MessageItem-myMessageListItem-70"
+  disabled={false}
+>
+  Avatar
+  <div
+    className="MuiPaper-root-84 MuiPaper-elevation4-90 MuiPaper-rounded-85 MessageItem-paper-69 MessageItem-myMessagePaper-71"
+  >
+    <p
+      className="MuiTypography-root-111 MuiTypography-caption-121"
+    />
+    <p
+      className="MuiTypography-root-111 MuiTypography-body1-120"
+    >
+      content
+    </p>
+  </div>
+</li>
+`;
+
+exports[`<MessageItem /> snapshot renders correctly - status message 1`] = `
+<div
+  className="MessageItem-root-68"
+>
+  <p
+    className="MuiTypography-root-111 MuiTypography-body1-120 MessageItem-statusMessage-72"
+  >
+    <span
+      className="MuiTypography-root-111 MuiTypography-caption-121 MessageItem-statusMessageUser-73"
+      style={
+        Object {
+          "color": "#e91e63",
+        }
+      }
+    />
+    content
+    <span
+      className="MuiTypography-root-111 MuiTypography-caption-121"
+    >
+      3 months ago
+    </span>
+  </p>
+</div>
+`;

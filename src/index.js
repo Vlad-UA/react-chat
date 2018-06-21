@@ -1,20 +1,21 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import 'typeface-roboto/index.css';
+import { Provider } from 'react-redux';
 import './index.css';
 import App from './components/App';
 import registerServiceWorker from './registerServiceWorker';
-import 'typeface-roboto';
-import configureStore from "./store";
-import {Provider} from 'react-redux';
+import configureStore from './store';
 
 const rootEl = document.getElementById('root');
 const store = configureStore();
 const render = () => {
   ReactDOM.render(
     <Provider store={store}>
-      <App/>
+      <App />
     </Provider>,
-    rootEl);
+    rootEl,
+  );
 };
 
 render();
@@ -23,7 +24,7 @@ render();
 if (module.hot) {
   module.hot.accept('./components/App', () => {
     render();
-  })
+  });
 }
 
 registerServiceWorker();

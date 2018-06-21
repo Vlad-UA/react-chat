@@ -1,0 +1,132 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<MessageTypeNew /> snapshot renders correctly - Input message field (disabled) 1`] = `
+<div
+  className="MuiPaper-root-59 MuiPaper-elevation4-65 MuiPaper-rounded-60 MessageTypeNew-root-56"
+>
+  <div
+    className="MuiInput-root-111 MuiInput-disabled-114 MuiInput-underline-115 MessageTypeNew-input-57"
+    onKeyPress={[Function]}
+  >
+    <input
+      aria-invalid={undefined}
+      aria-required={undefined}
+      autoComplete={undefined}
+      autoFocus={undefined}
+      className="MuiInput-input-119 MuiInput-disabled-114"
+      defaultValue={undefined}
+      disabled={true}
+      id={undefined}
+      name={undefined}
+      onBlur={[Function]}
+      onChange={[Function]}
+      onFocus={[Function]}
+      onKeyDown={undefined}
+      onKeyUp={undefined}
+      placeholder="Type your message..."
+      readOnly={undefined}
+      required={undefined}
+      rows={undefined}
+      type="text"
+      value=""
+    />
+  </div>
+</div>
+`;
+
+exports[`<MessageTypeNew /> snapshot renders correctly - Input message field (enabled) 1`] = `
+<div
+  className="MuiPaper-root-59 MuiPaper-elevation4-65 MuiPaper-rounded-60 MessageTypeNew-root-56"
+>
+  <div
+    className="MuiInput-root-111 MuiInput-underline-115 MessageTypeNew-input-57"
+    onKeyPress={[Function]}
+  >
+    <input
+      aria-invalid={undefined}
+      aria-required={undefined}
+      autoComplete={undefined}
+      autoFocus={undefined}
+      className="MuiInput-input-119"
+      defaultValue={undefined}
+      disabled={false}
+      id={undefined}
+      name={undefined}
+      onBlur={[Function]}
+      onChange={[Function]}
+      onFocus={[Function]}
+      onKeyDown={undefined}
+      onKeyUp={undefined}
+      placeholder="Type your message..."
+      readOnly={undefined}
+      required={undefined}
+      rows={undefined}
+      type="text"
+      value=""
+    />
+  </div>
+</div>
+`;
+
+exports[`<MessageTypeNew /> snapshot renders correctly - Join to chat button (disabled) 1`] = `
+<div
+  className="MuiPaper-root-59 MuiPaper-elevation4-65 MuiPaper-rounded-60 MessageTypeNew-root-56"
+>
+  <button
+    className="MuiButtonBase-root-101 MuiButtonBase-disabled-102 MuiButton-root-86 MuiButton-raised-91 MuiButton-raisedPrimary-92 MuiButton-disabled-95 MuiButton-fullWidth-100 MessageTypeNew-joinButton-58"
+    disabled={true}
+    onBlur={[Function]}
+    onClick={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    onMouseDown={[Function]}
+    onMouseLeave={[Function]}
+    onMouseUp={[Function]}
+    onTouchEnd={[Function]}
+    onTouchMove={[Function]}
+    onTouchStart={[Function]}
+    tabIndex="-1"
+    type="button"
+  >
+    <span
+      className="MuiButton-label-87"
+    >
+      Join
+    </span>
+  </button>
+</div>
+`;
+
+exports[`<MessageTypeNew /> snapshot renders correctly - Join to chat button (enabled) 1`] = `
+<div
+  className="MuiPaper-root-59 MuiPaper-elevation4-65 MuiPaper-rounded-60 MessageTypeNew-root-56"
+>
+  <button
+    className="MuiButtonBase-root-101 MuiButton-root-86 MuiButton-raised-91 MuiButton-raisedPrimary-92 MuiButton-fullWidth-100 MessageTypeNew-joinButton-58"
+    disabled={false}
+    onBlur={[Function]}
+    onClick={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    onMouseDown={[Function]}
+    onMouseLeave={[Function]}
+    onMouseUp={[Function]}
+    onTouchEnd={[Function]}
+    onTouchMove={[Function]}
+    onTouchStart={[Function]}
+    tabIndex="0"
+    type="button"
+  >
+    <span
+      className="MuiButton-label-87"
+    >
+      Join
+    </span>
+    <span
+      className="MuiTouchRipple-root-104"
+    />
+  </button>
+</div>
+`;

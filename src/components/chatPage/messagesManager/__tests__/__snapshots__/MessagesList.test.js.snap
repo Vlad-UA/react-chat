@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<MessagesList /> snapshot renders correctly - renders messages 1`] = `
+<main
+  className="MessagesList-root-7"
+>
+  <ul
+    className="MuiList-root-9 MuiList-padding-10"
+  >
+    MessageItem
+    MessageItem
+  </ul>
+</main>
+`;
+
+exports[`<MessagesList /> snapshot renders correctly - renders without messages 1`] = `
+<main
+  className="MessagesList-root-7"
+>
+  <div
+    className="MessagesList-thereNoMessage-8"
+  >
+    <h1
+      className="MuiTypography-root-13 MuiTypography-display1-17"
+    >
+      There is no messages yet...
+    </h1>
+  </div>
+</main>
+`;

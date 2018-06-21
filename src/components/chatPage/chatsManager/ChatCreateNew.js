@@ -6,14 +6,15 @@ import Modal from 'material-ui/Modal';
 import Paper from 'material-ui/Paper';
 import Typography from 'material-ui/Typography';
 import TextField from 'material-ui/TextField';
-import {withStyles} from 'material-ui/styles';
+import { withStyles } from 'material-ui/styles';
+import PropTypes from 'prop-types';
 
 const styles = theme => ({
   newChatButton: {
     position: 'absolute',
     left: 'auto',
     right: theme.spacing.unit * 3,
-    bottom: theme.spacing.unit * 3 + 48, // + bottom navigation
+    bottom: (theme.spacing.unit * 3) + 48, // + bottom navigation
   },
   modalWrapper: {
     display: 'flex',
@@ -28,7 +29,15 @@ const styles = theme => ({
 });
 
 class ChatCreateNew extends React.Component {
-
+  static propTypes = {
+    classes: PropTypes.objectOf(PropTypes.string).isRequired,
+    createChatAction: PropTypes.func.isRequired,
+    classAdditional: PropTypes.string,
+    disabled: PropTypes.bool.isRequired,
+  };
+  static defaultProps = {
+    classAdditional: '',
+  };
   state = {
     open: false,
     title: {
@@ -38,7 +47,7 @@ class ChatCreateNew extends React.Component {
   };
 
   toggleModal = () => {
-    this.setState({open: !this.state.open});
+    this.setState({ open: !this.state.open });
   };
 
   handleTitleChange = (event) => {
@@ -53,7 +62,7 @@ class ChatCreateNew extends React.Component {
   handleCreateClick = (event) => {
     event.preventDefault();
 
-    const {title} = this.state;
+    const { title } = this.state;
 
     if (!title.value) {
       this.setState({
@@ -77,8 +86,8 @@ class ChatCreateNew extends React.Component {
   };
 
   render() {
-    const {classes, classAdditional, disabled} = this.props;
-    const {open, title} = this.state;
+    const { classes, classAdditional, disabled } = this.props;
+    const { open, title } = this.state;
 
     return (
       <React.Fragment>
@@ -90,7 +99,7 @@ class ChatCreateNew extends React.Component {
           className={classAdditional}
           onClick={this.toggleModal}
         >
-          <AddIcon/>
+          <AddIcon />
         </Button>
         <Modal open={open} className={classes.modalWrapper} onClose={this.toggleModal}>
           <Paper className={classes.modal}>

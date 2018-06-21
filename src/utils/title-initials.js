@@ -5,9 +5,10 @@ export default function titleInitials(props) {
       .map(word => word[0])
       .join('')
       .toUpperCase()
-      .slice(0, props.lettersQuantity)
+      .slice(0, props.lettersQuantity);
   } catch (e) {
+    // eslint-disable-next-line
     console.error(e);
-    return ':)'
+    return ':)';
   }
 }

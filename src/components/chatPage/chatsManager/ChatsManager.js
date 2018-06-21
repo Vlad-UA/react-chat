@@ -1,8 +1,7 @@
 import React from 'react';
-
-import {withStyles} from 'material-ui/styles';
+import PropTypes from 'prop-types';
+import { withStyles } from 'material-ui/styles';
 import Drawer from 'material-ui/Drawer';
-
 import ChatsList from './ChatsList';
 import ChatCreateNew from './ChatCreateNew';
 import ChatSearch from './ChatsSearch';
@@ -21,7 +20,7 @@ const styles = () => ({
     left: 0,
     overflow: 'auto',
     width: '100%',
-    height: 'calc(100% - 130px)'
+    height: 'calc(100% - 130px)',
   },
 
   chatFilter: {
@@ -39,7 +38,20 @@ const styles = () => ({
   },
 });
 
-class ChatsManager extends React.Component{
+class ChatsManager extends React.Component {
+  static propTypes = {
+    classes: PropTypes.objectOf(PropTypes.string).isRequired,
+    classAdditional: PropTypes.string,
+    chats: PropTypes.shape({
+      my: PropTypes.array,
+      all: PropTypes.array,
+    }).isRequired,
+    createChatAction: PropTypes.func.isRequired,
+    isConnected: PropTypes.bool.isRequired,
+  };
+  static defaultProps = {
+    classAdditional: '',
+  };
   state = {
     searchValue: '',
     activeTab: 0,
@@ -61,20 +73,19 @@ class ChatsManager extends React.Component{
     const { searchValue } = this.state;
 
     return chats
-      .filter(chat => chat.title.toLowerCase().includes(searchValue.toLowerCase()))
+      .filter(chat => chat.title && chat.title.toLowerCase().includes(searchValue.toLowerCase()))
       .sort((one, two) => (one.title.toLowerCase() <= two.title.toLowerCase() ? -1 : 1));
   };
 
-  render(){
-    const {classes, chats, classAdditional, createChatAction, isConnected} = this.props;
-    const { activeTab} = this.state;
+  render() {
+    const {
+      classes, chats, classAdditional, createChatAction, isConnected,
+    } = this.props;
+    const { activeTab } = this.state;
 
     return (
-      <Drawer variant="permanent" classes={{paper: classAdditional}}>
-        <ChatSearch
-          classAdditional={classes.chatSearch}
-          onChange={this.handleSearchChange}
-        />
+      <Drawer variant="permanent" classes={{ paper: classAdditional }}>
+        <ChatSearch classAdditional={classes.chatSearch} onChange={this.handleSearchChange} />
 
         <ChatsList
           disabled={!isConnected}
@@ -82,10 +93,7 @@ class ChatsManager extends React.Component{
           chats={this.applySearchFilterAndSorting(activeTab === 0 ? chats.my : chats.all)}
         />
 
-        <ChatFilter
-          classAdditional={classes.chatFilter}
-          onChange={this.handleTabFilterChange}
-        />
+        <ChatFilter classAdditional={classes.chatFilter} onChange={this.handleTabFilterChange} />
 
         <ChatCreateNew
           disabled={!isConnected}

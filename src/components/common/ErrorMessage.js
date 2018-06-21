@@ -2,32 +2,37 @@ import React from 'react';
 import Snackbar from 'material-ui/Snackbar';
 import IconButton from 'material-ui/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
+import PropTypes from 'prop-types';
 
 class ErrorMessage extends React.Component {
+  static propTypes = {
+    error: PropTypes.instanceOf(Error),
+  };
+  static defaultProps = {
+    error: null,
+  };
   state = {
     open: false,
   };
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.error) {
+      this.setState({ open: true });
+    }
+  }
 
   handleCloseSnackbar = (event, reason) => {
     if (reason === 'clickaway') {
       return;
     }
 
-    this.setState({open: false});
+    this.setState({ open: false });
   };
-
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.error) {
-      this.setState({open: true});
-    }
-  }
-
   render() {
-
-    const {error} = this.props;
+    const { error } = this.props;
 
     if (!error) {
-      return error;
+      return null;
     }
 
     return (
@@ -47,7 +52,7 @@ class ErrorMessage extends React.Component {
             color="inherit"
             onClick={this.handleCloseSnackbar}
           >
-            <CloseIcon/>
+            <CloseIcon />
           </IconButton>,
         ]}
       />

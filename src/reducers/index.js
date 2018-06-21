@@ -1,4 +1,4 @@
-import {combineReducers} from 'redux';
+import { combineReducers } from 'redux';
 import authentication from './authenticationReducer';
 import chats from './chatsReducer';
 import messages from './messagesReducer';
@@ -9,9 +9,10 @@ export default combineReducers({
   chats,
   messages,
   services,
-})
+});
 
 export const getActiveUser = state => state.authentication.user;
+// eslint-disable-next-line
 export const getUserId = user => user._id;
 
 export const isCreator = (state, chat) => {
@@ -24,14 +25,11 @@ export const isCreator = (state, chat) => {
 
 export const isMember = (state, chat) => {
   try {
-    return chat.members.some(
-      member => getUserId(member) === getUserId(getActiveUser(state))
-    );
+    return chat.members.some(member => getUserId(member) === getUserId(getActiveUser(state)));
   } catch (e) {
     return false;
   }
 };
 
-export const isChatCreatorOrMember = (state, chat) => {
-  return isCreator(state, chat) || isMember(state, chat);
-};
+export const isChatCreatorOrMember = (state, chat) =>
+  isCreator(state, chat) || isMember(state, chat);

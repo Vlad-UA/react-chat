@@ -1,16 +1,20 @@
 import React from 'react';
-
-import {withStyles} from 'material-ui/styles';
-import TextField from "material-ui/TextField";
-import Button from "material-ui/Button";
+import PropTypes from 'prop-types';
+import { withStyles } from 'material-ui/styles';
+import TextField from 'material-ui/TextField';
+import Button from 'material-ui/Button';
 
 const styles = () => ({
   loginButton: {
-    marginTop: 20
-  }
+    marginTop: 20,
+  },
 });
 
 class LoginForm extends React.Component {
+  static propTypes = {
+    classes: PropTypes.objectOf(PropTypes.string).isRequired,
+    onSubmit: PropTypes.func.isRequired,
+  };
   state = {
     username: {
       value: '',
@@ -19,33 +23,32 @@ class LoginForm extends React.Component {
     password: {
       value: '',
       isValid: true,
-    }
+    },
   };
 
   handleInput = (event) => {
     event.persist();
 
-    const {name, value} = event.target;
+    const { name, value } = event.target;
 
-    this.setState((prevState) => ({
+    this.setState(prevState => ({
       [name]: {
         ...prevState[name],
         value,
-      }
+      },
     }));
   };
 
   handleSubmit = (event) => {
     event.preventDefault();
 
-    const {username, password} = this.state;
-
+    const { username, password } = this.state;
     this.props.onSubmit(username.value, password.value);
   };
 
   render() {
-    const {username, password} = this.state;
-    const {classes} = this.props;
+    const { username, password } = this.state;
+    const { classes } = this.props;
 
     return (
       <form onSubmit={this.handleSubmit}>
@@ -75,12 +78,18 @@ class LoginForm extends React.Component {
           onChange={this.handleInput}
           error={!password.isValid}
         />
-        <Button fullWidth variant="raised" type="submit" color="primary" className={classes.loginButton}>
+        <Button
+          fullWidth
+          variant="raised"
+          type="submit"
+          color="primary"
+          className={classes.loginButton}
+        >
           Login
         </Button>
       </form>
     );
-  };
+  }
 }
 
 export default withStyles(styles)(LoginForm);

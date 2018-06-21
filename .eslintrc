@@ -1,9 +1,0 @@
-{
-  "extends": "react-app",
-  "ecmaFeatures": {
-    "jsx": true
-  },
-  "plugins": [
-    "react"
-  ]
-}

@@ -12,4 +12,9 @@ export default (state = initialState, action) => {
     default:
       return state;
   }
-}
+};
+
+// eslint-disable-next-line
+export const getSenderId = sender => sender._id;
+// eslint-disable-next-line
+export const getMessageId = message => message._id;

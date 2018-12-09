@@ -36,11 +36,10 @@ export function signup(username, password) {
           payload: json,
         });
       })
-      .catch(reason =>
-        dispatch({
-          type: authConst.SIGNUP_FAILURE,
-          payload: reason,
-        }));
+      .catch(reason => dispatch({
+        type: authConst.SIGNUP_FAILURE,
+        payload: reason,
+      }));
   };
 }
 
@@ -78,11 +77,10 @@ export function login(username, password) {
           payload: json,
         });
       })
-      .catch(reason =>
-        dispatch({
-          type: authConst.LOGIN_FAILURE,
-          payload: reason,
-        }));
+      .catch(reason => dispatch({
+        type: authConst.LOGIN_FAILURE,
+        payload: reason,
+      }));
   };
 }
 
@@ -109,11 +107,10 @@ export function logout() {
           payload: json,
         });
       })
-      .catch(reason =>
-        dispatch({
-          type: authConst.LOGOUT_FAILURE,
-          payload: reason,
-        }));
+      .catch(reason => dispatch({
+        type: authConst.LOGOUT_FAILURE,
+        payload: reason,
+      }));
   };
 }
 
@@ -137,15 +134,13 @@ export function receiveAuth() {
       endpoint: '/users/me',
       token,
     })
-      .then(json =>
-        dispatch({
-          type: authConst.RECEIVE_AUTH_SUCCESS,
-          payload: json,
-        }))
-      .catch(reason =>
-        dispatch({
-          type: authConst.RECEIVE_AUTH_FAILURE,
-          payload: reason,
-        }));
+      .then(json => dispatch({
+        type: authConst.RECEIVE_AUTH_SUCCESS,
+        payload: json,
+      }))
+      .catch(reason => dispatch({
+        type: authConst.RECEIVE_AUTH_FAILURE,
+        payload: reason,
+      }));
   };
 }

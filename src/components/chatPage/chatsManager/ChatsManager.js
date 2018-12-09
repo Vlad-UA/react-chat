@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from 'material-ui/styles';
-import Drawer from 'material-ui/Drawer';
+import { withStyles } from '@material-ui/core/styles';
+import Drawer from '@material-ui/core/Drawer';
 import ChatsList from './ChatsList';
 import ChatCreateNew from './ChatCreateNew';
 import ChatSearch from './ChatsSearch';
@@ -49,9 +49,11 @@ class ChatsManager extends React.Component {
     createChatAction: PropTypes.func.isRequired,
     isConnected: PropTypes.bool.isRequired,
   };
+
   static defaultProps = {
     classAdditional: '',
   };
+
   state = {
     searchValue: '',
     activeTab: 0,

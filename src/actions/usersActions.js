@@ -22,15 +22,13 @@ export function editUserProfile({username, firstName, lastName}) {
       options: { method: 'POST' },
       payload: { data: { username, firstName, lastName } },
     })
-      .then(json =>
-        dispatch({
-          type: userConstants.EDIT_USER_PROFILE_SUCCESS,
-          payload: json,
-        }))
-      .catch(reason =>
-        dispatch({
-          type: userConstants.EDIT_USER_PROFILE_FAILURE,
-          payload: reason,
-        }));
+      .then(json => dispatch({
+        type: userConstants.EDIT_USER_PROFILE_SUCCESS,
+        payload: json,
+      }))
+      .catch(reason => dispatch({
+        type: userConstants.EDIT_USER_PROFILE_FAILURE,
+        payload: reason,
+      }));
   };
 }

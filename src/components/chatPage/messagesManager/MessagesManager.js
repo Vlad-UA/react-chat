@@ -1,9 +1,10 @@
 import React from 'react';
-import { withStyles } from 'material-ui/styles';
-import Typography from 'material-ui/Typography';
-import Paper from 'material-ui/Paper';
+// import { withStyles } from 'material-ui/styles';
+import { withStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
+import Paper from '@material-ui/core/Paper';
 import PropTypes from 'prop-types';
-import Grid from 'material-ui/Grid';
+import Grid from '@material-ui/core/Grid';
 import classNames from 'classnames';
 import MessageList from './MessagesList';
 import MessageTypeNew from './MessageTypeNew';
@@ -67,10 +68,18 @@ const MessagesManager = ({
             Start messaging…
           </Typography>
           <Typography variant="body1" gutterBottom>
-            Use <strong>Global</strong> to explore communities around here.
+            Use
+            {' '}
+            <strong>Global</strong>
+            {' '}
+to explore communities around here.
           </Typography>
           <Typography variant="body1" gutterBottom>
-            Use <strong>Recent</strong> to see your recent conversations.
+            Use
+            {' '}
+            <strong>Recent</strong>
+            {' '}
+to see your recent conversations.
           </Typography>
         </Paper>
       </Grid>

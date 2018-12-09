@@ -11,8 +11,10 @@ class PrivateRouteContainer extends React.Component {
     isAuthenticated: PropTypes.bool.isRequired,
     receiveAuth: PropTypes.func.isRequired,
   };
+
   componentDidMount() {
-    this.props.receiveAuth();
+    const { receiveAuth: receiveAuthProps } = this.props;
+    receiveAuthProps();
   }
 
   render() {
@@ -21,17 +23,16 @@ class PrivateRouteContainer extends React.Component {
     return (
       <Route
         {...rest}
-        render={props =>
-          (isAuthenticated ? (
-            <Component {...props} />
-          ) : (
-            <Redirect
-              to={{
-                pathname: '/welcome',
-                state: { from: props.location },
-              }}
-            />
-          ))
+        render={props => (isAuthenticated ? (
+          <Component {...props} />
+        ) : (
+          <Redirect
+            to={{
+              pathname: '/welcome',
+              state: { from: props.location },
+            }}
+          />
+        ))
         }
       />
     );
@@ -42,13 +43,12 @@ const mapStateToProps = state => ({
   isAuthenticated: state.authentication.isAuthenticated,
 });
 
-const mapDispatchToProps = dispatch =>
-  bindActionCreators(
-    {
-      receiveAuth,
-    },
-    dispatch,
-  );
+const mapDispatchToProps = dispatch => bindActionCreators(
+  {
+    receiveAuth,
+  },
+  dispatch,
+);
 
 export default withRouter(connect(
   mapStateToProps,

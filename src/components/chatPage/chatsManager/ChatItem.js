@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { ListItem, ListItemText } from 'material-ui/List';
-import { withStyles } from 'material-ui/styles/index';
+import { ListItem, ListItemText } from '@material-ui/core/List';
+import { withStyles } from '@material-ui/core/styles';
 import moment from 'moment';
 import Avatar from '../common/Avatar';
 

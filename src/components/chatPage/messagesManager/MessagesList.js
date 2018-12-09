@@ -1,8 +1,8 @@
 import React from 'react';
-import { withStyles } from 'material-ui/styles';
+import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
-import List from 'material-ui/List';
-import Typography from 'material-ui/Typography';
+import List from '@material-ui/core/List';
+import Typography from '@material-ui/core/Typography';
 import classNames from 'classnames';
 import MessageItem from './MessageItem';
 import { getMessageId } from '../../../reducers/messagesReducer';
@@ -28,9 +28,13 @@ class MessagesList extends React.Component {
     }).isRequired,
     messagesList: PropTypes.arrayOf(PropTypes.object).isRequired,
   };
+
   static defaultProps = {
     classAdditional: '',
   };
+
+  refMessagesWrapper = React.createRef();
+
   componentDidMount() {
     this.scrollDownHistory();
   }
@@ -38,8 +42,6 @@ class MessagesList extends React.Component {
   componentDidUpdate() {
     this.scrollDownHistory();
   }
-
-  refMessagesWrapper = React.createRef();
 
   scrollDownHistory() {
     const messagesWrapper = this.refMessagesWrapper.current;
@@ -58,8 +60,8 @@ class MessagesList extends React.Component {
       <main ref={this.refMessagesWrapper} className={classNames(classes.root, classAdditional)}>
         {messagesList && messagesList.length > 0 ? (
           <List>
-            {messagesList &&
-              messagesList.map(message => (
+            {messagesList
+              && messagesList.map(message => (
                 <MessageItem {...message} key={getMessageId(message)} activeUser={activeUser} />
               ))}
           </List>

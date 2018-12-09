@@ -1,5 +1,7 @@
 import React from 'react';
-import { Router, Route, Switch, Redirect } from 'react-router-dom';
+import {
+  Router, Route, Switch, Redirect,
+} from 'react-router-dom';
 
 import ChatPageContainer from '../containers/ChatPageContainer';
 import WelcomePageContainer from '../containers/WelcomePageContainer';

@@ -1,12 +1,12 @@
 import React from 'react';
 
-import Button from 'material-ui/Button';
+import Button from '@material-ui/core/Button';
 import AddIcon from '@material-ui/icons/Add';
-import Modal from 'material-ui/Modal';
-import Paper from 'material-ui/Paper';
-import Typography from 'material-ui/Typography';
-import TextField from 'material-ui/TextField';
-import { withStyles } from 'material-ui/styles';
+import Modal from '@material-ui/core/Modal';
+import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
+import TextField from '@material-ui/core/TextField';
+import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 
 const styles = theme => ({
@@ -35,9 +35,11 @@ class ChatCreateNew extends React.Component {
     classAdditional: PropTypes.string,
     disabled: PropTypes.bool.isRequired,
   };
+
   static defaultProps = {
     classAdditional: '',
   };
+
   state = {
     open: false,
     title: {
@@ -47,7 +49,8 @@ class ChatCreateNew extends React.Component {
   };
 
   toggleModal = () => {
-    this.setState({ open: !this.state.open });
+    const { open } = this.state;
+    this.setState({ open: !open });
   };
 
   handleTitleChange = (event) => {
@@ -63,6 +66,7 @@ class ChatCreateNew extends React.Component {
     event.preventDefault();
 
     const { title } = this.state;
+    const { createChatAction } = this.props;
 
     if (!title.value) {
       this.setState({
@@ -75,7 +79,7 @@ class ChatCreateNew extends React.Component {
       return;
     }
 
-    this.props.createChatAction(title.value);
+    createChatAction(title.value);
     this.toggleModal();
     this.setState({
       title: {

@@ -31,25 +31,22 @@ describe('<ChatItem />', () => {
   });
 
   it('snapshot renders correctly - renders correctly', () => {
-    const tree =
-      renderer.create(<MemoryRouter><ChatItem {...mockProps} /></MemoryRouter>)
-        .toJSON();
+    const tree = renderer.create(<MemoryRouter><ChatItem {...mockProps} /></MemoryRouter>)
+      .toJSON();
     expect(tree).toMatchSnapshot();
   });
 
   it('snapshot renders correctly - renders disabled', () => {
-    const tree =
-      renderer
-        .create(<MemoryRouter><ChatItem {...mockProps} disabled /></MemoryRouter>)
-        .toJSON();
+    const tree = renderer
+      .create(<MemoryRouter><ChatItem {...mockProps} disabled /></MemoryRouter>)
+      .toJSON();
     expect(tree).toMatchSnapshot();
   });
 
   it('snapshot renders correctly - renders active', () => {
-    const tree =
-      renderer
-        .create(<MemoryRouter><ChatItem {...mockProps} active /></MemoryRouter>)
-        .toJSON();
+    const tree = renderer
+      .create(<MemoryRouter><ChatItem {...mockProps} active /></MemoryRouter>)
+      .toJSON();
     expect(tree).toMatchSnapshot();
   });
 });

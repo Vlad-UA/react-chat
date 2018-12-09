@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from 'material-ui/styles';
+import { withStyles } from '@material-ui/core/styles';
 import ChatsManager from './chatsManager/ChatsManager';
 import MessageManager from './messagesManager/MessagesManager';
 import ChatHeader from './chatHeader/ChatHeader';

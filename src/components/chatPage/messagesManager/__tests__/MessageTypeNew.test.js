@@ -19,34 +19,30 @@ describe('<MessageTypeNew />', () => {
   });
 
   it('snapshot renders correctly - Join to chat button (enabled)', () => {
-    const tree =
-      renderer
-        .create(<MessageTypeNew {...mockProps} showJoinButton disabled={false} />)
-        .toJSON();
+    const tree = renderer
+      .create(<MessageTypeNew {...mockProps} showJoinButton disabled={false} />)
+      .toJSON();
     expect(tree).toMatchSnapshot();
   });
 
   it('snapshot renders correctly - Join to chat button (disabled)', () => {
-    const tree =
-      renderer
-        .create(<MessageTypeNew {...mockProps} showJoinButton disabled />)
-        .toJSON();
+    const tree = renderer
+      .create(<MessageTypeNew {...mockProps} showJoinButton disabled />)
+      .toJSON();
     expect(tree).toMatchSnapshot();
   });
 
   it('snapshot renders correctly - Input message field (enabled)', () => {
-    const tree =
-      renderer
-        .create(<MessageTypeNew {...mockProps} showJoinButton={false} disabled={false} />)
-        .toJSON();
+    const tree = renderer
+      .create(<MessageTypeNew {...mockProps} showJoinButton={false} disabled={false} />)
+      .toJSON();
     expect(tree).toMatchSnapshot();
   });
 
   it('snapshot renders correctly - Input message field (disabled)', () => {
-    const tree =
-      renderer
-        .create(<MessageTypeNew {...mockProps} showJoinButton={false} disabled />)
-        .toJSON();
+    const tree = renderer
+      .create(<MessageTypeNew {...mockProps} showJoinButton={false} disabled />)
+      .toJSON();
     expect(tree).toMatchSnapshot();
   });
 });

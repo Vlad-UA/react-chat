@@ -37,6 +37,7 @@ class LocalStorage {
   get length() {
     return Object.keys(this).length;
   }
+
   // for backwards compatibility
   get __STORE__() {
     return this;

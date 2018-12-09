@@ -1,9 +1,9 @@
 import React from 'react';
 import classNames from 'classnames';
-import { withStyles } from 'material-ui/styles';
-import Paper from 'material-ui/Paper';
-import Input from 'material-ui/Input';
-import Button from 'material-ui/Button';
+import { withStyles } from '@material-ui/core/styles';
+import Paper from '@material-ui/core/Paper';
+import Input from '@material-ui/core/Input';
+import Button from '@material-ui/core/Button';
 import PropTypes from 'prop-types';
 
 const styles = theme => ({
@@ -29,9 +29,10 @@ class MessageTypeNew extends React.Component {
 
   handleKeyPress = (event) => {
     const { value } = this.state;
+    const { sendMessage } = this.props;
 
     if (event.key === 'Enter' && value) {
-      this.props.sendMessage(value);
+      sendMessage(value);
       this.setState({ value: '' });
     }
   };
@@ -43,6 +44,7 @@ class MessageTypeNew extends React.Component {
   };
 
   render() {
+    const { value } = this.state;
     const {
       classes, classAdditional, showJoinButton, onJoinButtonClick, disabled,
     } = this.props;
@@ -67,7 +69,7 @@ class MessageTypeNew extends React.Component {
             className={classes.input}
             onKeyPress={this.handleKeyPress}
             onChange={this.handleValueChange}
-            value={this.state.value}
+            value={value}
           />
         )}
       </Paper>

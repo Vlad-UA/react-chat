@@ -1,10 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Grid from 'material-ui/Grid';
-import Paper from 'material-ui/Paper';
-import AppBar from 'material-ui/AppBar';
-import Tabs, { Tab } from 'material-ui/Tabs';
-import withStyles from 'material-ui/styles/withStyles';
+import Grid from '@material-ui/core/Grid';
+import Paper from '@material-ui/core/Paper';
+import AppBar from '@material-ui/core/AppBar';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
+import { withStyles } from '@material-ui/core/styles';
 
 import LoginForm from './LoginForm';
 import SignUpForm from './SignUpForm';
@@ -25,10 +26,11 @@ class WelcomeBody extends React.Component {
     onSignup: PropTypes.func.isRequired,
     onLogin: PropTypes.func.isRequired,
   };
+
   state = { activeTab: 0 };
 
-  getTabContent = (activeTab, onSignup, onLogin) =>
-    (activeTab ? <SignUpForm onSubmit={onSignup} /> : <LoginForm onSubmit={onLogin} />);
+  getTabContent = (activeTab, onSignup, onLogin) => (
+    activeTab ? <SignUpForm onSubmit={onSignup} /> : <LoginForm onSubmit={onLogin} />);
 
   handleTabChange = (event, value) => {
     this.setState({ activeTab: value });
@@ -56,5 +58,6 @@ class WelcomeBody extends React.Component {
     );
   }
 }
+
 
 export default withStyles(styles)(WelcomeBody);

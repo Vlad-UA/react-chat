@@ -31,5 +31,5 @@ export const isMember = (state, chat) => {
   }
 };
 
-export const isChatCreatorOrMember = (state, chat) =>
-  isCreator(state, chat) || isMember(state, chat);
+export const isChatCreatorOrMember = (state, chat) => isCreator(state, chat)
+    || isMember(state, chat);

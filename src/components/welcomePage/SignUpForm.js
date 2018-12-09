@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from 'material-ui/styles';
-import TextField from 'material-ui/TextField';
-import Button from 'material-ui/Button';
+import { withStyles } from '@material-ui/core/styles';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
 
 const styles = () => ({
   signUpButton: {
@@ -15,6 +15,7 @@ class SignUpForm extends React.Component {
     classes: PropTypes.objectOf(PropTypes.string).isRequired,
     onSubmit: PropTypes.func.isRequired,
   };
+
   state = {
     username: {
       value: '',
@@ -62,12 +63,13 @@ class SignUpForm extends React.Component {
     event.preventDefault();
 
     const { username, passwordBase } = this.state;
+    const { onSubmit } = this.props;
 
     if (!this.isPasswordValid()) {
       return;
     }
 
-    this.props.onSubmit(username.value, passwordBase.value);
+    onSubmit(username.value, passwordBase.value);
   };
 
   render() {

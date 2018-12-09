@@ -2,7 +2,7 @@ import React from 'react';
 
 import IconRestore from '@material-ui/icons/Restore';
 import IconExplore from '@material-ui/icons/Explore';
-import BottomNavigation, { BottomNavigationAction } from 'material-ui/BottomNavigation';
+import BottomNavigation, { BottomNavigationAction } from '@material-ui/core/BottomNavigation';
 import PropTypes from 'prop-types';
 
 const ChatsFilter = ({ classAdditional, onChange }) => (

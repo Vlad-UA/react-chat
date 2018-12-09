@@ -1,9 +1,9 @@
 import React from 'react';
 import classNames from 'classnames';
-import List from 'material-ui/List';
+import List from '@material-ui/core/List';
 import PropTypes from 'prop-types';
-import Typography from 'material-ui/Typography';
-import { withStyles } from 'material-ui/styles/index';
+import Typography from '@material-ui/core/Typography';
+import { withStyles } from '@material-ui/core/styles';
 import ChatItem from './ChatItem';
 import { getChatId } from '../../../reducers/chatsReducer';
 

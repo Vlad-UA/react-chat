@@ -1,5 +1,5 @@
 import React from 'react';
-import Input from 'material-ui/Input';
+import Input from '@material-ui/core/Input';
 import PropTypes from 'prop-types';
 
 const ChatsSearch = ({ classAdditional, onChange }) => (

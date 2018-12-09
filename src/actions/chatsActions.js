@@ -21,16 +21,14 @@ export function fetchMyChats() {
       endpoint: '/chats/my',
       token,
     })
-      .then(data =>
-        dispatch({
-          type: chatsConstants.FETCH_MY_CHATS_SUCCESS,
-          payload: data,
-        }))
-      .catch(reason =>
-        dispatch({
-          type: chatsConstants.FETCH_MY_CHATS_FAILURE,
-          payload: reason,
-        }));
+      .then(data => dispatch({
+        type: chatsConstants.FETCH_MY_CHATS_SUCCESS,
+        payload: data,
+      }))
+      .catch(reason => dispatch({
+        type: chatsConstants.FETCH_MY_CHATS_FAILURE,
+        payload: reason,
+      }));
   };
 }
 
@@ -52,16 +50,14 @@ export function fetchAllChats() {
       endpoint: '/chats',
       token,
     })
-      .then(data =>
-        dispatch({
-          type: chatsConstants.FETCH_ALL_CHATS_SUCCESS,
-          payload: data,
-        }))
-      .catch(reason =>
-        dispatch({
-          type: chatsConstants.FETCH_ALL_CHATS_FAILURE,
-          payload: reason,
-        }));
+      .then(data => dispatch({
+        type: chatsConstants.FETCH_ALL_CHATS_SUCCESS,
+        payload: data,
+      }))
+      .catch(reason => dispatch({
+        type: chatsConstants.FETCH_ALL_CHATS_FAILURE,
+        payload: reason,
+      }));
   };
 }
 
@@ -91,34 +87,32 @@ export function fetchChat(chatId) {
 
         return data;
       })
-      .catch(reason =>
-        dispatch({
-          type: chatsConstants.FETCH_CHAT_FAILURE,
-          payload: reason,
-        }));
+      .catch(reason => dispatch({
+        type: chatsConstants.FETCH_CHAT_FAILURE,
+        payload: reason,
+      }));
   };
 }
 
 export function setActiveChat(chatId) {
-  return (dispatch, getState) =>
-    dispatch(fetchChat(chatId)).then((data) => {
-      if (getState().services.isConnected) {
-        if (!data) {
-          dispatch(redirect('/chat'));
+  return (dispatch, getState) => dispatch(fetchChat(chatId)).then((data) => {
+    if (getState().services.isConnected) {
+      if (!data) {
+        dispatch(redirect('/chat'));
 
-          return dispatch({
-            type: chatsConstants.UNSET_ACTIVE_CHAT,
-          });
-        }
-        dispatch({
-          type: chatsConstants.SET_ACTIVE_CHAT,
-          payload: data,
+        return dispatch({
+          type: chatsConstants.UNSET_ACTIVE_CHAT,
         });
-
-        return dispatch(redirect(`/chat/${getChatId(data.chat)}`));
       }
-      return Promise.resolve();
-    });
+      dispatch({
+        type: chatsConstants.SET_ACTIVE_CHAT,
+        payload: data,
+      });
+
+      return dispatch(redirect(`/chat/${getChatId(data.chat)}`));
+    }
+    return Promise.resolve();
+  });
 }
 
 export function createChat(title) {
@@ -152,11 +146,10 @@ export function createChat(title) {
 
         return chat;
       })
-      .catch(reason =>
-        dispatch({
-          type: chatsConstants.CREATE_CHAT_FAILURE,
-          payload: reason,
-        }));
+      .catch(reason => dispatch({
+        type: chatsConstants.CREATE_CHAT_FAILURE,
+        payload: reason,
+      }));
   };
 }
 
@@ -189,11 +182,10 @@ export function joinChat(chatId) {
 
         return chat;
       })
-      .catch(reason =>
-        dispatch({
-          type: chatsConstants.JOIN_CHAT_FAILURE,
-          payload: reason,
-        }));
+      .catch(reason => dispatch({
+        type: chatsConstants.JOIN_CHAT_FAILURE,
+        payload: reason,
+      }));
   };
 }
 
@@ -230,11 +222,10 @@ export function leaveChat(chatId) {
 
         return data;
       })
-      .catch(reason =>
-        dispatch({
-          type: chatsConstants.LEAVE_CHAT_FAILURE,
-          payload: reason,
-        }));
+      .catch(reason => dispatch({
+        type: chatsConstants.LEAVE_CHAT_FAILURE,
+        payload: reason,
+      }));
   };
 }
 
@@ -272,10 +263,9 @@ export function deleteChat(chatId) {
 
         return data;
       })
-      .catch(reason =>
-        dispatch({
-          type: chatsConstants.DELETE_CHAT_FAILURE,
-          payload: reason,
-        }));
+      .catch(reason => dispatch({
+        type: chatsConstants.DELETE_CHAT_FAILURE,
+        payload: reason,
+      }));
   };
 }

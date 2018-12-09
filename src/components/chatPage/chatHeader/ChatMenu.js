@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import IconButton from 'material-ui/IconButton';
-import Menu, { MenuItem } from 'material-ui/Menu';
+import IconButton from '@material-ui/core/IconButton';
+import Menu, { MenuItem } from '@material-ui/core/Menu';
 import MoreIcon from '@material-ui/icons/MoreVert';
-import { withStyles } from 'material-ui/styles';
+import { withStyles } from '@material-ui/core/styles';
 
 const styles = () => ({
   root: {
@@ -26,6 +26,7 @@ class ChatMenu extends React.Component {
     }).isRequired,
     disabled: PropTypes.bool.isRequired,
   };
+
   state = {
     anchorEl: null,
   };
@@ -39,13 +40,15 @@ class ChatMenu extends React.Component {
   };
 
   handleLeaveClick = () => {
+    const { onLeaveClick } = this.props;
     this.handleClose();
-    this.props.onLeaveClick();
+    onLeaveClick();
   };
 
   handleDeleteClick = () => {
+    const { onDeleteClick } = this.props;
     this.handleClose();
-    this.props.onDeleteClick();
+    onDeleteClick();
   };
 
   render() {

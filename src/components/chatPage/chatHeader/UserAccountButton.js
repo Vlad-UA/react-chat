@@ -1,16 +1,16 @@
 import React from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
-import { withStyles } from 'material-ui/styles';
-import IconButton from 'material-ui/IconButton';
+import { withStyles } from '@material-ui/core/styles';
+import IconButton from '@material-ui/core/IconButton';
 import IconAccount from '@material-ui/icons/AccountCircle';
-import Menu from 'material-ui/Menu';
-import MenuItem from 'material-ui/Menu/MenuItem';
-import Modal from 'material-ui/Modal';
-import Paper from 'material-ui/Paper';
-import Typography from 'material-ui/Typography';
-import Button from 'material-ui/Button';
-import TextField from 'material-ui/TextField';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
+import Modal from '@material-ui/core/Modal';
+import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
 
 const styles = theme => ({
   root: {
@@ -36,6 +36,7 @@ class UserAccountButton extends React.Component {
     classAdditional: PropTypes.string,
     disabled: PropTypes.bool.isRequired,
   };
+
   static defaultProps = {
     classAdditional: '',
   };
@@ -47,6 +48,7 @@ class UserAccountButton extends React.Component {
     firstName: '',
     lastName: '',
   };
+
   static getDerivedStateFromProps(props, state) {
     return {
       ...state,
@@ -55,30 +57,40 @@ class UserAccountButton extends React.Component {
       lastName: props.activeUser.lastName,
     };
   }
+
   onCloseEditProfileModal = () => {
     this.setState({ isModalOpen: false });
   };
 
   onSaveEditProfileModal = () => {
-    this.props.editUserProfile({
-      username: this.state.username,
-      firstName: this.state.firstName,
-      lastName: this.state.lastName,
+    const { editUserProfile } = this.props;
+    const { username, firstName, lastName } = this.state;
+
+    editUserProfile({
+      username,
+      firstName,
+      lastName,
     });
 
     this.setState({ isModalOpen: false });
   };
+
   handleMenuItemLogoutClick = () => {
-    this.props.onLogoutAction();
+    const { onLogoutAction } = this.props;
+
+    onLogoutAction();
     this.handleMenuClose();
   };
+
   handleMenuItemEditProfileClick = () => {
     this.setState({ isModalOpen: true });
     this.handleMenuClose();
   };
+
   handleMenuClose = () => {
     this.setState({ anchorEl: null });
   };
+
   handleUserAccountButtonClick = (event) => {
     this.setState({ anchorEl: event.currentTarget });
   };
@@ -91,7 +103,9 @@ class UserAccountButton extends React.Component {
 
   render() {
     const { classes, classAdditional, disabled } = this.props;
-    const { anchorEl, isModalOpen } = this.state;
+    const {
+      anchorEl, isModalOpen, lastName, firstName, username,
+    } = this.state;
 
     return (
       <React.Fragment>
@@ -131,7 +145,7 @@ class UserAccountButton extends React.Component {
               type="text"
               margin="normal"
               helperText="Some important text1"
-              value={this.state.username}
+              value={username}
               onChange={this.handleInputChange}
             />
             <TextField
@@ -141,7 +155,7 @@ class UserAccountButton extends React.Component {
               placeholder="Enter you first name..."
               type="text"
               margin="normal"
-              value={this.state.firstName}
+              value={firstName}
               onChange={this.handleInputChange}
             />
             <TextField
@@ -151,7 +165,7 @@ class UserAccountButton extends React.Component {
               placeholder="Enter you last name..."
               type="text"
               margin="normal"
-              value={this.state.lastName}
+              value={lastName}
               onChange={this.handleInputChange}
             />
             <Button color="primary" onClick={this.onSaveEditProfileModal}>
